@@ -41,12 +41,13 @@ function doPost(e) {
     }
 
     var d = JSON.parse(e.postData.contents);
-    var folder = getUploadFolder_();
     var safeName = (d.fullName || 'registrant').replace(/[^\w\- ]+/g, '').trim() || 'registrant';
 
-    var photoUrl    = saveFile_(folder, d.photo,      'photo_' + safeName);
-    var ssUrl       = saveFile_(folder, d.screenshot, 'payment_' + safeName);
-    var aadhaarUrl  = saveFile_(folder, d.aadhaar,    'aadhaar_' + safeName);
+    // Save uploads, but never let a Drive problem drop the registration.
+    // If Drive isn't authorized yet, the cell records the error instead.
+    var photoUrl   = trySaveFile_(d.photo,      'photo_' + safeName);
+    var ssUrl      = trySaveFile_(d.screenshot, 'payment_' + safeName);
+    var aadhaarUrl = trySaveFile_(d.aadhaar,    'aadhaar_' + safeName);
 
     sheet.appendRow([
       d.timestamp, d.fullName, d.phone, d.dob, d.bloodGroup,
@@ -72,6 +73,16 @@ function getUploadFolder_() {
   return it.hasNext() ? it.next() : DriveApp.createFolder(UPLOAD_FOLDER_NAME);
 }
 
+/** Wrapper that never throws — returns '' when empty, or 'UPLOAD FAILED: …'. */
+function trySaveFile_(fileObj, baseName) {
+  if (!fileObj || !fileObj.data) return '';
+  try {
+    return saveFile_(getUploadFolder_(), fileObj, baseName);
+  } catch (err) {
+    return 'UPLOAD FAILED: ' + err;
+  }
+}
+
 /**
  * Decodes a { name, type, data(base64) } object to a Drive file and
  * returns a viewable link. Returns '' when no file was provided.
@@ -93,6 +104,17 @@ function saveFile_(folder, fileObj, baseName) {
     // Some domains restrict link sharing; the file is still saved.
   }
   return file.getUrl();
+}
+
+/**
+ * RUN THIS ONCE from the editor (select "authorize" → Run) to grant the
+ * Spreadsheet + Drive permissions. Approve the prompt that appears. After
+ * that, uploads from the live form will save correctly.
+ */
+function authorize() {
+  SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var folder = getUploadFolder_();
+  Logger.log('Authorized. Upload folder ready: ' + folder.getName());
 }
 
 function jsonOut_(obj) {
