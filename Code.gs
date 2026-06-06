@@ -50,13 +50,13 @@ function doPost(e) {
     var aadhaarUrl = trySaveFile_(d.aadhaar,    'aadhaar_' + safeName);
 
     sheet.appendRow([
-      d.timestamp, d.fullName, d.phone, d.dob, d.bloodGroup,
+      d.timestamp, d.fullName, txt_(d.phone), d.dob, d.bloodGroup,
       d.address, d.station, d.position, d.batting, d.bowling,
       d.registrationType,
-      d.distFirm, d.distBrand, d.distGst,
-      d.retStore, d.retGst, d.retConfig,
+      d.distFirm, d.distBrand, txt_(d.distGst),
+      d.retStore, txt_(d.retGst), d.retConfig,
       d.execFirm, d.execBrand,
-      d.utr, photoUrl, ssUrl, aadhaarUrl
+      txt_(d.utr), photoUrl, ssUrl, aadhaarUrl
     ]);
 
     return jsonOut_({ result: 'ok' });
@@ -115,6 +115,16 @@ function authorize() {
   SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var folder = getUploadFolder_();
   Logger.log('Authorized. Upload folder ready: ' + folder.getName());
+}
+
+/**
+ * Forces a value to be stored as plain text so Google Sheets doesn't treat
+ * a leading +, =, -, or @ as a formula (e.g. "+91…" phone numbers).
+ */
+function txt_(val) {
+  if (val === null || val === undefined || val === '') return '';
+  var s = String(val);
+  return /^[=+\-@]/.test(s) ? "'" + s : s;
 }
 
 function jsonOut_(obj) {

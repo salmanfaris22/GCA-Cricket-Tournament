@@ -285,6 +285,26 @@
   }
   .fee-note { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
 
+  /* QR CODE */
+  .qr-wrap {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .qr-img {
+    width: 200px;
+    max-width: 70%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px;
+    background: #fff;
+  }
+  .qr-cap {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
   /* BANK TABLE */
   .bank-table {
     width: 100%;
@@ -449,6 +469,44 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   .overlay-box p { font-size: 14px; color: var(--muted); }
+
+  /* TOAST NOTIFICATION */
+  .toast {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-160%);
+    background: #fff;
+    border-left: 4px solid var(--red);
+    border-radius: 12px;
+    box-shadow: 0 12px 34px rgba(0,0,0,0.18);
+    padding: 13px 15px;
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    max-width: 380px;
+    width: calc(100% - 28px);
+    z-index: 200;
+    opacity: 0;
+    transition: transform 0.38s cubic-bezier(0.16,1,0.3,1), opacity 0.3s;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .toast.success { border-left-color: var(--green); }
+  .toast-ico { font-size: 20px; line-height: 1.2; flex-shrink: 0; }
+  .toast-body { flex: 1; }
+  .toast-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1px;
+  }
+  .toast-msg { font-size: 13px; color: var(--muted); line-height: 1.45; }
+  .toast-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; color: #b0b0b0; line-height: 1;
+    padding: 0 2px; flex-shrink: 0;
+  }
+  .toast-close:hover { color: var(--text); }
 </style>
 </head>
 <body>
@@ -707,6 +765,11 @@
     <div class="card">
       <div class="section-label">Bank Transfer / UPI</div>
 
+      <div class="qr-wrap">
+        <img src="qr.png" alt="Scan to pay ₹5,000 via UPI" class="qr-img">
+        <div class="qr-cap">Scan with any UPI app to pay ₹5,000</div>
+      </div>
+
       <table class="bank-table">
         <tr><td class="bk">Bank</td><td class="bv">City Union Bank, Tripunithura</td></tr>
         <tr><td class="bk">Account Name</td><td class="bv">Garments Cricket Association Trust</td></tr>
@@ -722,13 +785,7 @@
       <div class="contact-box">
         <b>📞 Payment Support</b><br>
         Govind S Varikkat &nbsp;·&nbsp; <b>+91 98468 82299</b><br>
-        <span style="font-size:12px">Keep your payment screenshot / UTR ready</span>
-      </div>
-
-      <div class="field">
-        <label>UTR / Transaction Reference Number <span class="req">*</span></label>
-        <input type="text" id="utr" placeholder="12-digit UTR number from bank / UPI app">
-        <div class="hint">Find this in your bank app under transaction details</div>
+        <span style="font-size:12px">Keep your payment screenshot ready</span>
       </div>
 
       <div class="field">
@@ -761,8 +818,7 @@
         <b style="color:#1a1a1a">GCA Cricket Tournament Goa 2026</b>.<br><br>
         Your registration will be confirmed after<br>
         payment verification by the organizers.<br><br>
-        Keep your <b style="color:#1a1a1a">UTR number</b> and
-        <b style="color:#1a1a1a">payment screenshot</b><br>
+        Keep your <b style="color:#1a1a1a">payment screenshot</b><br>
         ready if requested.<br><br>
         For queries call:<br>
         <a href="tel:+919846882299">+91 98468 82299</a> (Govind S Varikkat)
@@ -770,6 +826,16 @@
     </div>
   </div>
 
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">
+  <div class="toast-ico" id="toastIco">⚠️</div>
+  <div class="toast-body">
+    <div class="toast-title" id="toastTitle">Required</div>
+    <div class="toast-msg" id="toastMsg"></div>
+  </div>
+  <button class="toast-close" onclick="hideToast()" aria-label="Close">&times;</button>
 </div>
 
 <!-- Loading overlay -->
@@ -783,6 +849,79 @@
 <script>
   // ── State ─────────────────────────────────────────────
   var vals = {};   // radio/select values keyed by group id
+  var toastTimer;
+  var currentPage = 1;
+  var STORAGE_KEY = 'gca_reg_draft_v1';
+
+  // ── Auto-save / restore (survives leaving for a UPI app) ─
+  // Text fields, selections and the current step are saved to the
+  // browser so returning from GPay/PhonePe keeps everything filled.
+  // (Uploaded files can't be stored and must be re-picked after a full
+  //  reload — opening a UPI app normally does NOT reload, so this is rare.)
+  function saveState() {
+    try {
+      var data = { page: currentPage, vals: vals, fields: {} };
+      document.querySelectorAll('.main input, .main select, .main textarea').forEach(function(el) {
+        if (!el.id || el.type === 'file') return;
+        data.fields[el.id] = el.value;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {}
+  }
+
+  function loadState() {
+    var data;
+    try { data = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); }
+    catch (e) { data = null; }
+    if (!data) return;
+
+    // Restore text/select values
+    if (data.fields) {
+      Object.keys(data.fields).forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el.type !== 'file') el.value = data.fields[id];
+      });
+    }
+
+    // Restore radio selections + their visual state
+    if (data.vals) {
+      vals = data.vals;
+      Object.keys(vals).forEach(function(groupId) {
+        var val = vals[groupId];
+        var opts = document.querySelectorAll('#' + groupId + ' .radio-opt');
+        opts.forEach(function(o) {
+          var oc = o.getAttribute('onclick') || '';
+          if (oc.indexOf("'" + val + "'") !== -1) o.classList.add('sel');
+        });
+      });
+      // Re-open the right conditional block for registration type
+      var rt = vals['grp-regtype'];
+      if (rt) {
+        document.getElementById('cond-distributor').classList.toggle('show', rt === 'Distributor');
+        document.getElementById('cond-retail').classList.toggle('show', rt === 'Retail Store Owner');
+        document.getElementById('cond-executive').classList.toggle('show', rt === 'Executive');
+        document.getElementById('aadhaarField').style.display = 'block';
+      }
+    }
+
+    // Return to the same step (never the success page)
+    var p = data.page && data.page >= 1 && data.page <= 5 ? data.page : 1;
+    goTo(p);
+  }
+
+  // ── Custom toast (replaces browser alert) ─────────────
+  function notify(msg, type) {
+    var t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    document.getElementById('toastIco').textContent = type === 'success' ? '✅' : '⚠️';
+    document.getElementById('toastTitle').textContent = type === 'success' ? 'Success' : 'Required';
+    t.className = 'toast show' + (type === 'success' ? ' success' : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(hideToast, 3600);
+  }
+  function hideToast() {
+    document.getElementById('toast').classList.remove('show');
+  }
 
   // ── Radio picker ──────────────────────────────────────
   function pick(groupId, el, value) {
@@ -791,6 +930,7 @@
     });
     el.classList.add('sel');
     vals[groupId] = value;
+    saveState();
   }
 
   // ── Registration-type picker (toggles conditional blocks) ─
@@ -800,6 +940,7 @@
     document.getElementById('cond-retail').classList.toggle('show', value === 'Retail Store Owner');
     document.getElementById('cond-executive').classList.toggle('show', value === 'Executive');
     document.getElementById('aadhaarField').style.display = 'block';
+    saveState();
   }
 
   // ── File name + image preview ─────────────────────────
@@ -845,50 +986,50 @@
       if (i < n)  s.classList.add('done');
       if (i === n) s.classList.add('active');
     }
+    if (n <= 5) { currentPage = n; saveState(); }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // ── Validation per page ───────────────────────────────
   function validate(page) {
     if (page === 1) {
-      if (!v('fullname'))    return alert('Please enter your full name.'),    false;
-      if (!v('phone'))       return alert('Please enter your phone number.'), false;
-      if (!v('dob'))         return alert('Please select your date of birth.'), false;
-      if (!v('bloodgroup'))  return alert('Please select your blood group.'), false;
+      if (!v('fullname'))    return notify('Please enter your full name.'),    false;
+      if (!v('phone'))       return notify('Please enter your phone number.'), false;
+      if (!v('dob'))         return notify('Please select your date of birth.'), false;
+      if (!v('bloodgroup'))  return notify('Please select your blood group.'), false;
     }
     if (page === 2) {
-      if (!v('address'))  return alert('Please enter your address.'), false;
-      if (!v('station'))  return alert('Please enter the nearest railway station.'), false;
+      if (!v('address'))  return notify('Please enter your address.'), false;
+      if (!v('station'))  return notify('Please enter the nearest railway station.'), false;
     }
     if (page === 3) {
-      if (!vals['grp-position']) return alert('Please select your playing position.'), false;
-      if (!vals['grp-batting'])  return alert('Please select your batting hand.'), false;
-      if (!vals['grp-bowling'])  return alert('Please select your bowling hand.'), false;
+      if (!vals['grp-position']) return notify('Please select your playing position.'), false;
+      if (!vals['grp-batting'])  return notify('Please select your batting hand.'), false;
+      if (!vals['grp-bowling'])  return notify('Please select your bowling hand.'), false;
     }
     if (page === 4) {
       var rt = vals['grp-regtype'];
-      if (!rt) return alert('Please select how you are registering.'), false;
+      if (!rt) return notify('Please select how you are registering.'), false;
       if (rt === 'Distributor') {
-        if (!v('dist_firm'))  return alert('Please enter the firm name.'),  false;
-        if (!v('dist_brand')) return alert('Please enter the brand name.'), false;
-        if (!v('dist_gst'))   return alert('Please enter the GST number.'), false;
+        if (!v('dist_firm'))  return notify('Please enter the firm name.'),  false;
+        if (!v('dist_brand')) return notify('Please enter the brand name.'), false;
+        if (!v('dist_gst'))   return notify('Please enter the GST number.'), false;
       }
       if (rt === 'Retail Store Owner') {
-        if (!v('ret_store'))  return alert('Please enter the retail store name.'), false;
-        if (!v('ret_gst'))    return alert('Please enter the GST number.'), false;
-        if (!v('ret_config')) return alert('Please select a configuration.'), false;
+        if (!v('ret_store'))  return notify('Please enter the retail store name.'), false;
+        if (!v('ret_gst'))    return notify('Please enter the GST number.'), false;
+        if (!v('ret_config')) return notify('Please select a configuration.'), false;
       }
       if (rt === 'Executive') {
-        if (!v('exec_firm'))  return alert('Please enter the firm name.'),  false;
-        if (!v('exec_brand')) return alert('Please enter the brand name.'), false;
+        if (!v('exec_firm'))  return notify('Please enter the firm name.'),  false;
+        if (!v('exec_brand')) return notify('Please enter the brand name.'), false;
       }
       if (!document.getElementById('aadhaarFile').files.length)
-        return alert('Please upload your Aadhaar card.'), false;
+        return notify('Please upload your Aadhaar card.'), false;
     }
     if (page === 5) {
-      if (!v('utr')) return alert('Please enter the UTR / transaction number.'), false;
       if (!document.getElementById('ssFile').files.length)
-        return alert('Please upload your payment screenshot.'), false;
+        return notify('Please upload your payment screenshot.'), false;
     }
     return true;
   }
@@ -946,7 +1087,6 @@
         retConfig:        v('ret_config'),
         execFirm:         v('exec_firm'),
         execBrand:        v('exec_brand'),
-        utr:              v('utr'),
         photo:            files[0],   // { name, type, data } | null
         screenshot:       files[1],
         aadhaar:          files[2]
@@ -971,16 +1111,27 @@
       .then(function() { done(); })
       .catch(function() {
         document.getElementById('overlay').classList.remove('show');
-        alert('Network error. Please check your connection and try again.');
+        notify('Network error. Please check your connection and try again.');
       });
     });
   }
 
   function done() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
     document.getElementById('overlay').classList.remove('show');
     goTo(6);
     document.getElementById('stepsBar').style.display = 'none';
   }
+
+  // ── Init: attach auto-save listeners + restore any draft ─
+  (function init() {
+    document.querySelectorAll('.main input, .main select, .main textarea').forEach(function(el) {
+      if (el.type === 'file') return;
+      el.addEventListener('input', saveState);
+      el.addEventListener('change', saveState);
+    });
+    loadState();
+  })();
 </script>
 </body>
 </html>
