@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>GCA Cricket Tournament Goa 2026 - Player Registration</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
 <style>
@@ -433,11 +433,57 @@
     margin-bottom: 16px;
   }
 
+  /* ── RESPONSIVE ─────────────────────────────────────── */
+
+  /* Tablet & below */
+  @media (max-width: 768px) {
+    .main { padding: 22px 14px 50px; }
+    .header { padding: 28px 18px 24px; }
+    .header h1 { font-size: 30px; }
+  }
+
+  /* Phones */
   @media (max-width: 480px) {
     .row2 { grid-template-columns: 1fr; }
-    .step { padding: 11px 10px; font-size: 11px; }
-    .header h1 { font-size: 28px; }
+    .steps { justify-content: flex-start; }
+    .step { padding: 11px 11px; font-size: 11px; gap: 5px; }
+    .step .num { width: 20px; height: 20px; font-size: 10px; }
+    .header { padding: 24px 16px 22px; }
+    .header h1 { font-size: 27px; }
+    .header .badge { font-size: 10px; letter-spacing: 1.5px; }
+    .main { padding: 18px 12px 44px; }
+    .card { padding: 18px 15px; border-radius: 12px; }
     .radio-row { flex-direction: column; }
+    .fee-amount { font-size: 26px; }
+    .qr-img { width: 180px; }
+    /* 16px inputs stop iOS Safari from zooming in on focus */
+    input[type=text], input[type=tel], input[type=date],
+    input[type=email], select, textarea { font-size: 16px; }
+  }
+
+  /* Small phones */
+  @media (max-width: 360px) {
+    .header h1 { font-size: 23px; }
+    .step { padding: 10px 8px; font-size: 10px; }
+    .step .num { width: 18px; height: 18px; }
+    .card { padding: 15px 13px; }
+    .btn-next { font-size: 18px; }
+    .qr-img { width: 160px; max-width: 80%; }
+    .bank-table { font-size: 12px; }
+  }
+
+  /* Wider screens — keep the form a comfortable reading width */
+  @media (min-width: 700px) {
+    .main { padding-top: 36px; }
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   /* Submission overlay */
@@ -987,6 +1033,9 @@
       if (i === n) s.classList.add('active');
     }
     if (n <= 5) { currentPage = n; saveState(); }
+    // Keep the active step chip visible on narrow screens
+    var act = document.getElementById('st' + n);
+    if (act && act.scrollIntoView) act.scrollIntoView({ inline: 'center', block: 'nearest' });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
