@@ -565,10 +565,9 @@
 
 <div class="steps" id="stepsBar">
   <div class="step active" id="st1"><div class="num">1</div> Personal</div>
-  <div class="step" id="st2"><div class="num">2</div> Address</div>
+  <div class="step" id="st2"><div class="num">2</div> Business</div>
   <div class="step" id="st3"><div class="num">3</div> Cricket</div>
-  <div class="step" id="st4"><div class="num">4</div> Business</div>
-  <div class="step" id="st5"><div class="num">5</div> Payment</div>
+  <div class="step" id="st4"><div class="num">4</div> Payment</div>
 </div>
 
 <div class="main">
@@ -606,6 +605,11 @@
       </div>
 
       <div class="field">
+        <label>Nearest Railway Station <span class="req">*</span></label>
+        <input type="text" id="station" placeholder="e.g. Madgaon, Vasco da Gama, Karmali">
+      </div>
+
+      <div class="field">
         <label>Profile Photo</label>
         <div class="upload-box" onclick="document.getElementById('photoFile').click()">
           <div class="uico">📷</div>
@@ -616,6 +620,18 @@
         <div class="fname" id="photoName"></div>
         <img class="preview-img" id="photoPreview" alt="Photo preview">
       </div>
+
+      <div class="field">
+        <label>Aadhaar Card <span class="req">*</span></label>
+        <div class="upload-box" onclick="document.getElementById('aadhaarFile').click()">
+          <div class="uico">🪪</div>
+          <div>Upload your Aadhaar card</div>
+          <small>JPG, PNG, PDF · Max 10 MB</small>
+        </div>
+        <input type="file" id="aadhaarFile" accept="image/*,application/pdf" style="display:none" onchange="setFileName(this,'aadhaarName','aadhaarPreview')">
+        <div class="fname" id="aadhaarName"></div>
+        <img class="preview-img" id="aadhaarPreview" alt="Aadhaar preview">
+      </div>
     </div>
 
     <div class="nav-btns">
@@ -623,19 +639,73 @@
     </div>
   </div>
 
-  <!-- PAGE 2: Address -->
+  <!-- PAGE 2: Business / Registration Type -->
   <div class="page" id="pg2">
     <div class="card">
-      <div class="section-label">Address Details</div>
+      <div class="section-label">Registration Type</div>
 
       <div class="field">
-        <label>Full Address <span class="req">*</span></label>
-        <textarea id="address" rows="3" placeholder="House No., Street, Area, City, State, PIN Code"></textarea>
+        <label>Are you registering as? <span class="req">*</span></label>
+        <div class="radio-group" id="grp-regtype">
+          <div class="radio-opt" onclick="pickRegType(this,'Distributor')">
+            <div class="radio-dot"></div> 🏬 Distributor
+          </div>
+          <div class="radio-opt" onclick="pickRegType(this,'Retail Store Owner')">
+            <div class="radio-dot"></div> 🛒 Retail Store Owner
+          </div>
+          <div class="radio-opt" onclick="pickRegType(this,'Executive')">
+            <div class="radio-dot"></div> 💼 Executive
+          </div>
+        </div>
       </div>
 
-      <div class="field">
-        <label>Nearest Railway Station <span class="req">*</span></label>
-        <input type="text" id="station" placeholder="e.g. Madgaon, Vasco da Gama, Karmali">
+      <!-- Distributor -->
+      <div class="cond" id="cond-distributor">
+        <div class="cond-wrap">
+          <div class="section-label" style="margin-bottom:14px">Details of Distributor</div>
+          <div class="field">
+            <label>Firm Name <span class="req">*</span></label>
+            <input type="text" id="dist_firm" placeholder="Firm name">
+          </div>
+          <div class="field">
+            <label>Brand Name <span class="req">*</span></label>
+            <input type="text" id="dist_brand" placeholder="Brand name">
+          </div>
+          <div class="field">
+            <label>GST Number <span class="req">*</span></label>
+            <input type="text" id="dist_gst" placeholder="15-digit GSTIN">
+          </div>
+        </div>
+      </div>
+
+      <!-- Retail Store Owner -->
+      <div class="cond" id="cond-retail">
+        <div class="cond-wrap">
+          <div class="section-label" style="margin-bottom:14px">Details of Retail Store Owner</div>
+          <div class="field">
+            <label>Store Name <span class="req">*</span></label>
+            <input type="text" id="ret_store" placeholder="Name of your store">
+          </div>
+          <div class="field">
+            <label>GST Number <span class="req">*</span></label>
+            <input type="text" id="ret_gst" placeholder="15-digit GSTIN">
+          </div>
+        </div>
+      </div>
+
+      <!-- Executive -->
+      <div class="cond" id="cond-executive">
+        <div class="cond-wrap">
+          <div class="section-label" style="margin-bottom:14px">Details of Executive (Partner)</div>
+          <div class="field">
+            <label>Firm Name <span class="req">*</span></label>
+            <input type="text" id="exec_firm" placeholder="Firm name">
+          </div>
+          <div class="field">
+            <label>Brand Name <span class="req">*</span></label>
+            <input type="text" id="exec_brand" placeholder="Brand name">
+          </div>
+        </div>
       </div>
     </div>
 
@@ -700,106 +770,8 @@
     </div>
   </div>
 
-  <!-- PAGE 4: Business / Registration Type -->
+  <!-- PAGE 4: Payment -->
   <div class="page" id="pg4">
-    <div class="card">
-      <div class="section-label">Registration Type</div>
-
-      <div class="field">
-        <label>Are you registering as? <span class="req">*</span></label>
-        <div class="radio-group" id="grp-regtype">
-          <div class="radio-opt" onclick="pickRegType(this,'Distributor')">
-            <div class="radio-dot"></div> 🏬 Distributor
-          </div>
-          <div class="radio-opt" onclick="pickRegType(this,'Retail Store Owner')">
-            <div class="radio-dot"></div> 🛒 Retail Store Owner
-          </div>
-          <div class="radio-opt" onclick="pickRegType(this,'Executive')">
-            <div class="radio-dot"></div> 💼 Executive
-          </div>
-        </div>
-      </div>
-
-      <!-- Distributor -->
-      <div class="cond" id="cond-distributor">
-        <div class="cond-wrap">
-          <div class="section-label" style="margin-bottom:14px">Details of Distributor</div>
-          <div class="field">
-            <label>Firm Name <span class="req">*</span></label>
-            <input type="text" id="dist_firm" placeholder="Registered firm name">
-          </div>
-          <div class="field">
-            <label>Brand Name <span class="req">*</span></label>
-            <input type="text" id="dist_brand" placeholder="Brand you distribute">
-          </div>
-          <div class="field">
-            <label>GST Number <span class="req">*</span></label>
-            <input type="text" id="dist_gst" placeholder="15-digit GSTIN">
-          </div>
-        </div>
-      </div>
-
-      <!-- Retail Store Owner -->
-      <div class="cond" id="cond-retail">
-        <div class="cond-wrap">
-          <div class="section-label" style="margin-bottom:14px">Details of Retail Store Owner</div>
-          <div class="field">
-            <label>Retail Store Name <span class="req">*</span></label>
-            <input type="text" id="ret_store" placeholder="Name of your retail store">
-          </div>
-          <div class="field">
-            <label>GST Number <span class="req">*</span></label>
-            <input type="text" id="ret_gst" placeholder="15-digit GSTIN">
-          </div>
-          <div class="field">
-            <label>Configure <span class="req">*</span></label>
-            <select id="ret_config">
-              <option value="">— Select —</option>
-              <option>Retail Store Owner</option>
-              <option>Franchise</option>
-              <option>Authorized Dealer</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Executive -->
-      <div class="cond" id="cond-executive">
-        <div class="cond-wrap">
-          <div class="section-label" style="margin-bottom:14px">Details of Executive (Partner)</div>
-          <div class="field">
-            <label>Firm Name <span class="req">*</span></label>
-            <input type="text" id="exec_firm" placeholder="Partner firm name">
-          </div>
-          <div class="field">
-            <label>Brand Name <span class="req">*</span></label>
-            <input type="text" id="exec_brand" placeholder="Brand name">
-          </div>
-        </div>
-      </div>
-
-      <!-- Aadhaar upload (shown once a type is chosen) -->
-      <div class="field" id="aadhaarField" style="display:none; margin-top:16px">
-        <label>Aadhaar Card <span class="req">*</span></label>
-        <div class="upload-box" onclick="document.getElementById('aadhaarFile').click()">
-          <div class="uico">🪪</div>
-          <div>Upload your Aadhaar card</div>
-          <small>JPG, PNG, PDF · Max 10 MB</small>
-        </div>
-        <input type="file" id="aadhaarFile" accept="image/*,application/pdf" style="display:none" onchange="setFileName(this,'aadhaarName','aadhaarPreview')">
-        <div class="fname" id="aadhaarName"></div>
-        <img class="preview-img" id="aadhaarPreview" alt="Aadhaar preview">
-      </div>
-    </div>
-
-    <div class="nav-btns">
-      <button class="btn-back" onclick="goTo(3)">← Back</button>
-      <button class="btn-next" onclick="next(4)">Next →</button>
-    </div>
-  </div>
-
-  <!-- PAGE 5: Payment -->
-  <div class="page" id="pg5">
     <div class="fee-banner">
       <div class="fee-icon">💰</div>
       <div>
@@ -848,13 +820,13 @@
     </div>
 
     <div class="nav-btns">
-      <button class="btn-back" onclick="goTo(4)">← Back</button>
+      <button class="btn-back" onclick="goTo(3)">← Back</button>
       <button class="btn-next" onclick="submitForm()">Submit Registration</button>
     </div>
   </div>
 
-  <!-- PAGE 6: Success -->
-  <div class="page" id="pg6">
+  <!-- PAGE 5: Success -->
+  <div class="page" id="pg5">
     <div class="success-card">
       <div class="success-ico">✅</div>
       <div class="tag">Registration Complete</div>
@@ -946,12 +918,11 @@
         document.getElementById('cond-distributor').classList.toggle('show', rt === 'Distributor');
         document.getElementById('cond-retail').classList.toggle('show', rt === 'Retail Store Owner');
         document.getElementById('cond-executive').classList.toggle('show', rt === 'Executive');
-        document.getElementById('aadhaarField').style.display = 'block';
       }
     }
 
     // Return to the same step (never the success page)
-    var p = data.page && data.page >= 1 && data.page <= 5 ? data.page : 1;
+    var p = data.page && data.page >= 1 && data.page <= 4 ? data.page : 1;
     goTo(p);
   }
 
@@ -985,7 +956,6 @@
     document.getElementById('cond-distributor').classList.toggle('show', value === 'Distributor');
     document.getElementById('cond-retail').classList.toggle('show', value === 'Retail Store Owner');
     document.getElementById('cond-executive').classList.toggle('show', value === 'Executive');
-    document.getElementById('aadhaarField').style.display = 'block';
     saveState();
   }
 
@@ -1025,14 +995,14 @@
   function goTo(n) {
     document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
     document.getElementById('pg' + n).classList.add('active');
-    for (var i = 1; i <= 5; i++) {
+    for (var i = 1; i <= 4; i++) {
       var s = document.getElementById('st' + i);
       if (!s) continue;
       s.classList.remove('active', 'done');
       if (i < n)  s.classList.add('done');
       if (i === n) s.classList.add('active');
     }
-    if (n <= 5) { currentPage = n; saveState(); }
+    if (n <= 4) { currentPage = n; saveState(); }
     // Keep the active step chip visible on narrow screens
     var act = document.getElementById('st' + n);
     if (act && act.scrollIntoView) act.scrollIntoView({ inline: 'center', block: 'nearest' });
@@ -1046,17 +1016,11 @@
       if (!v('phone'))       return notify('Please enter your phone number.'), false;
       if (!v('dob'))         return notify('Please select your date of birth.'), false;
       if (!v('bloodgroup'))  return notify('Please select your blood group.'), false;
+      if (!v('station'))     return notify('Please enter the nearest railway station.'), false;
+      if (!document.getElementById('aadhaarFile').files.length)
+        return notify('Please upload your Aadhaar card.'), false;
     }
     if (page === 2) {
-      if (!v('address'))  return notify('Please enter your address.'), false;
-      if (!v('station'))  return notify('Please enter the nearest railway station.'), false;
-    }
-    if (page === 3) {
-      if (!vals['grp-position']) return notify('Please select your playing position.'), false;
-      if (!vals['grp-batting'])  return notify('Please select your batting hand.'), false;
-      if (!vals['grp-bowling'])  return notify('Please select your bowling hand.'), false;
-    }
-    if (page === 4) {
       var rt = vals['grp-regtype'];
       if (!rt) return notify('Please select how you are registering.'), false;
       if (rt === 'Distributor') {
@@ -1065,18 +1029,20 @@
         if (!v('dist_gst'))   return notify('Please enter the GST number.'), false;
       }
       if (rt === 'Retail Store Owner') {
-        if (!v('ret_store'))  return notify('Please enter the retail store name.'), false;
+        if (!v('ret_store'))  return notify('Please enter the store name.'), false;
         if (!v('ret_gst'))    return notify('Please enter the GST number.'), false;
-        if (!v('ret_config')) return notify('Please select a configuration.'), false;
       }
       if (rt === 'Executive') {
         if (!v('exec_firm'))  return notify('Please enter the firm name.'),  false;
         if (!v('exec_brand')) return notify('Please enter the brand name.'), false;
       }
-      if (!document.getElementById('aadhaarFile').files.length)
-        return notify('Please upload your Aadhaar card.'), false;
     }
-    if (page === 5) {
+    if (page === 3) {
+      if (!vals['grp-position']) return notify('Please select your playing position.'), false;
+      if (!vals['grp-batting'])  return notify('Please select your batting hand.'), false;
+      if (!vals['grp-bowling'])  return notify('Please select your bowling hand.'), false;
+    }
+    if (page === 4) {
       if (!document.getElementById('ssFile').files.length)
         return notify('Please upload your payment screenshot.'), false;
     }
@@ -1094,7 +1060,7 @@
 
   // ── Submit ────────────────────────────────────────────
   function submitForm() {
-    if (!validate(5)) return;
+    if (!validate(4)) return;
 
     // Show loading
     document.getElementById('overlay').classList.add('show');
@@ -1122,7 +1088,6 @@
         phone:            v('phone'),
         dob:              v('dob'),
         bloodGroup:       v('bloodgroup'),
-        address:          v('address'),
         station:          v('station'),
         position:         vals['grp-position'] || '',
         batting:          vals['grp-batting']  || '',
@@ -1133,7 +1098,6 @@
         distGst:          v('dist_gst'),
         retStore:         v('ret_store'),
         retGst:           v('ret_gst'),
-        retConfig:        v('ret_config'),
         execFirm:         v('exec_firm'),
         execBrand:        v('exec_brand'),
         photo:            files[0],   // { name, type, data } | null
@@ -1168,7 +1132,7 @@
   function done() {
     try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
     document.getElementById('overlay').classList.remove('show');
-    goTo(6);
+    goTo(5);
     document.getElementById('stepsBar').style.display = 'none';
   }
 
