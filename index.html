@@ -672,6 +672,10 @@
             <input type="text" id="dist_brand" placeholder="Brand name">
           </div>
           <div class="field">
+            <label>Address <span class="req">*</span></label>
+            <textarea id="dist_address" rows="3" placeholder="House No., Street, Area, City, State, PIN Code"></textarea>
+          </div>
+          <div class="field">
             <label>GST Number <span class="req">*</span></label>
             <input type="text" id="dist_gst" placeholder="15-digit GSTIN">
           </div>
@@ -685,6 +689,10 @@
           <div class="field">
             <label>Store Name <span class="req">*</span></label>
             <input type="text" id="ret_store" placeholder="Name of your store">
+          </div>
+          <div class="field">
+            <label>Store Address <span class="req">*</span></label>
+            <textarea id="ret_address" rows="3" placeholder="House No., Street, Area, City, State, PIN Code"></textarea>
           </div>
           <div class="field">
             <label>GST Number <span class="req">*</span></label>
@@ -704,6 +712,10 @@
           <div class="field">
             <label>Brand Name <span class="req">*</span></label>
             <input type="text" id="exec_brand" placeholder="Brand name">
+          </div>
+          <div class="field">
+            <label>Address <span class="req">*</span></label>
+            <textarea id="exec_address" rows="3" placeholder="House No., Street, Area, City, State, PIN Code"></textarea>
           </div>
         </div>
       </div>
@@ -1024,17 +1036,20 @@
       var rt = vals['grp-regtype'];
       if (!rt) return notify('Please select how you are registering.'), false;
       if (rt === 'Distributor') {
-        if (!v('dist_firm'))  return notify('Please enter the firm name.'),  false;
-        if (!v('dist_brand')) return notify('Please enter the brand name.'), false;
-        if (!v('dist_gst'))   return notify('Please enter the GST number.'), false;
+        if (!v('dist_firm'))    return notify('Please enter the firm name.'),  false;
+        if (!v('dist_brand'))   return notify('Please enter the brand name.'), false;
+        if (!v('dist_address')) return notify('Please enter the address.'), false;
+        if (!v('dist_gst'))     return notify('Please enter the GST number.'), false;
       }
       if (rt === 'Retail Store Owner') {
-        if (!v('ret_store'))  return notify('Please enter the store name.'), false;
-        if (!v('ret_gst'))    return notify('Please enter the GST number.'), false;
+        if (!v('ret_store'))   return notify('Please enter the store name.'), false;
+        if (!v('ret_address')) return notify('Please enter the store address.'), false;
+        if (!v('ret_gst'))     return notify('Please enter the GST number.'), false;
       }
       if (rt === 'Executive') {
-        if (!v('exec_firm'))  return notify('Please enter the firm name.'),  false;
-        if (!v('exec_brand')) return notify('Please enter the brand name.'), false;
+        if (!v('exec_firm'))    return notify('Please enter the firm name.'),  false;
+        if (!v('exec_brand'))   return notify('Please enter the brand name.'), false;
+        if (!v('exec_address')) return notify('Please enter the address.'), false;
       }
     }
     if (page === 3) {
@@ -1076,6 +1091,12 @@
 
     var rt = vals['grp-regtype'] || '';
 
+    // Address depends on the chosen registration type — one shared key.
+    var address = rt === 'Distributor'        ? v('dist_address')
+                : rt === 'Retail Store Owner' ? v('ret_address')
+                : rt === 'Executive'          ? v('exec_address')
+                : '';
+
     // Read all three file inputs as base64, then post.
     Promise.all([
       fileToObj('photoFile'),
@@ -1089,6 +1110,7 @@
         dob:              v('dob'),
         bloodGroup:       v('bloodgroup'),
         station:          v('station'),
+        address:          address,
         position:         vals['grp-position'] || '',
         batting:          vals['grp-batting']  || '',
         bowling:          vals['grp-bowling']  || '',
