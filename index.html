@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCA Cricket Tournament Goa 2026 - Player Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1a6b3c;
+    --green-d: #114d2b;
+    --green-l: #e6f4ed;
+    --gold: #b8820e;
+    --gold-l: #fdf6e3;
+    --red: #c0392b;
+    --border: rgba(0,0,0,0.11);
+    --bg: #f4f6f3;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --muted: #62696f;
+    --step-done: #0f5c32;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--text);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(145deg, #0d4a26 0%, #1a6b3c 60%, #22864c 100%);
+    padding: 32px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header .badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    color: #fff;
+    letter-spacing: 1.5px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+  }
+  .header a { color: #8ce0b0; text-decoration: none; }
+
+  /* STEP BAR */
+  .steps {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 13px 18px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    border-bottom: 2.5px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .step .num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step.active { color: var(--green); border-bottom-color: var(--green); }
+  .step.active .num { background: var(--green); color: #fff; }
+  .step.done { color: var(--step-done); opacity: 0.7; }
+  .step.done .num { background: var(--green); color: #fff; }
+
+  /* MAIN */
+  .main {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 28px 16px 60px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--green-l);
+  }
+
+  /* FIELDS */
+  .field { margin-bottom: 15px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .req { color: var(--red); margin-left: 1px; }
+  .hint { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+
+  input[type=text],
+  input[type=tel],
+  input[type=date],
+  input[type=email],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(26,107,60,0.1);
+  }
+  textarea { resize: vertical; line-height: 1.6; }
+  select { cursor: pointer; }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* RADIO */
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
+  .radio-row { display: flex; gap: 8px; }
+  .radio-row .radio-opt { flex: 1; }
+
+  .radio-opt {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .radio-opt:hover { border-color: var(--green); background: var(--green-l); }
+  .radio-opt.sel { border-color: var(--green); background: var(--green-l); color: var(--green); font-weight: 500; }
+  .radio-opt input { display: none; }
+  .radio-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.15s;
+  }
+  .radio-opt.sel .radio-dot { border-color: var(--green); }
+  .radio-dot::after {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .radio-opt.sel .radio-dot::after { opacity: 1; }
+
+  /* CONDITIONAL BLOCKS */
+  .cond { display: none; }
+  .cond.show { display: block; }
+  .cond-wrap {
+    border: 1px solid var(--green-l);
+    background: #fafdfb;
+    border-radius: 11px;
+    padding: 16px 14px;
+    margin-top: 14px;
+  }
+
+  /* UPLOAD */
+  .upload-box {
+    border: 1.5px dashed #c8d0c8;
+    border-radius: 9px;
+    padding: 18px 14px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .upload-box:hover { border-color: var(--green); color: var(--green); background: var(--green-l); }
+  .upload-box .uico { font-size: 26px; margin-bottom: 6px; }
+  .upload-box small { display: block; font-size: 11px; margin-top: 3px; opacity: 0.7; }
+  .fname { font-size: 12px; color: var(--green); margin-top: 5px; font-weight: 500; }
+  .preview-img {
+    display: none;
+    max-width: 100%;
+    max-height: 180px;
+    border-radius: 9px;
+    margin-top: 8px;
+    border: 1px solid var(--border);
+  }
+
+  /* FEE BANNER */
+  .fee-banner {
+    background: var(--gold-l);
+    border: 1px solid #e0c070;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .fee-icon { font-size: 28px; flex-shrink: 0; }
+  .fee-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .fee-note { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+
+  /* BANK TABLE */
+  .bank-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .bank-table td {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+  }
+  .bank-table tr:last-child td { border-bottom: none; }
+  .bank-table .bk { color: var(--muted); width: 45%; }
+  .bank-table .bv { font-weight: 500; color: var(--text); }
+
+  /* UPI BTN */
+  .upi-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: var(--green);
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    margin-bottom: 14px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.2px;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .upi-btn:hover { background: var(--green-d); }
+  .upi-btn:active { transform: scale(0.99); }
+
+  /* CONTACT */
+  .contact-box {
+    background: var(--green-l);
+    border-radius: 9px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+  .contact-box b { color: var(--green); }
+
+  /* BUTTONS */
+  .nav-btns { display: flex; gap: 10px; margin-top: 6px; }
+  .btn-back {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--muted);
+    transition: background 0.15s;
+  }
+  .btn-back:hover { background: #f0f0f0; }
+  .btn-next {
+    flex: 2;
+    padding: 13px;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-next:hover { background: var(--green-d); }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* SUCCESS */
+  .success-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 40px 24px;
+    text-align: center;
+  }
+  .success-ico {
+    width: 74px; height: 74px;
+    background: var(--green-l);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 34px;
+  }
+  .success-card h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    color: var(--green);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .success-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .success-card a { color: var(--green); font-weight: 500; text-decoration: none; }
+
+  .tag {
+    display: inline-block;
+    background: var(--green-l);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 480px) {
+    .row2 { grid-template-columns: 1fr; }
+    .step { padding: 11px 10px; font-size: 11px; }
+    .header h1 { font-size: 28px; }
+    .radio-row { flex-direction: column; }
+  }
+
+  /* Submission overlay */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .overlay.show { display: flex; }
+  .overlay-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 28px;
+    text-align: center;
+    max-width: 320px;
+    width: 90%;
+  }
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--green-l);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .overlay-box p { font-size: 14px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">🏏 Official Registration · Goa 2026</div>
+  <h1>GCA Cricket Tournament<br>Player Registration</h1>
+  <p>Contact us at <a href="mailto:gcagpl@gmail.com">gcagpl@gmail.com</a></p>
+</div>
+
+<div class="steps" id="stepsBar">
+  <div class="step active" id="st1"><div class="num">1</div> Personal</div>
+  <div class="step" id="st2"><div class="num">2</div> Address</div>
+  <div class="step" id="st3"><div class="num">3</div> Cricket</div>
+  <div class="step" id="st4"><div class="num">4</div> Business</div>
+  <div class="step" id="st5"><div class="num">5</div> Payment</div>
+</div>
+
+<div class="main">
+
+  <!-- PAGE 1: Personal -->
+  <div class="page active" id="pg1">
+    <div class="card">
+      <div class="section-label">Personal Details</div>
+
+      <div class="field">
+        <label>Full Name <span class="req">*</span></label>
+        <input type="text" id="fullname" placeholder="As per Aadhaar / ID card">
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="dob">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Blood Group <span class="req">*</span></label>
+        <select id="bloodgroup">
+          <option value="">— Select blood group —</option>
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>O+</option><option>O-</option>
+          <option>AB+</option><option>AB-</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Profile Photo</label>
+        <div class="upload-box" onclick="document.getElementById('photoFile').click()">
+          <div class="uico">📷</div>
+          <div>Tap to upload your photo</div>
+          <small>JPG, PNG · Max 10 MB</small>
+        </div>
+        <input type="file" id="photoFile" accept="image/*" style="display:none" onchange="setFileName(this,'photoName','photoPreview')">
+        <div class="fname" id="photoName"></div>
+        <img class="preview-img" id="photoPreview" alt="Photo preview">
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-next" style="flex:1" onclick="next(1)">Next →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 2: Address -->
+  <div class="page" id="pg2">
+    <div class="card">
+      <div class="section-label">Address Details</div>
+
+      <div class="field">
+        <label>Full Address <span class="req">*</span></label>
+        <textarea id="address" rows="3" placeholder="House No., Street, Area, City, State, PIN Code"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Nearest Railway Station <span class="req">*</span></label>
+        <input type="text" id="station" placeholder="e.g. Madgaon, Vasco da Gama, Karmali">
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goTo(1)">← Back</button>
+      <button class="btn-next" onclick="next(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3: Cricket -->
+  <div class="page" id="pg3">
+    <div class="card">
+      <div class="section-label">Cricket Details</div>
+
+      <div class="field">
+        <label>Playing Position <span class="req">*</span></label>
+        <div class="radio-group" id="grp-position">
+          <div class="radio-opt" onclick="pick('grp-position',this,'Batsman')">
+            <div class="radio-dot"></div> 🏏 Batsman
+          </div>
+          <div class="radio-opt" onclick="pick('grp-position',this,'Bowler')">
+            <div class="radio-dot"></div> 🎳 Bowler
+          </div>
+          <div class="radio-opt" onclick="pick('grp-position',this,'Wicket Keeper')">
+            <div class="radio-dot"></div> 🧤 Wicket Keeper
+          </div>
+          <div class="radio-opt" onclick="pick('grp-position',this,'All-Rounder')">
+            <div class="radio-dot"></div> ⭐ All-Rounder
+          </div>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Batting Hand <span class="req">*</span></label>
+          <div class="radio-group" id="grp-batting">
+            <div class="radio-opt" onclick="pick('grp-batting',this,'Right Handed')">
+              <div class="radio-dot"></div> Right Handed
+            </div>
+            <div class="radio-opt" onclick="pick('grp-batting',this,'Left Handed')">
+              <div class="radio-dot"></div> Left Handed
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Bowling Hand <span class="req">*</span></label>
+          <div class="radio-group" id="grp-bowling">
+            <div class="radio-opt" onclick="pick('grp-bowling',this,'Right Handed')">
+              <div class="radio-dot"></div> Right Handed
+            </div>
+            <div class="radio-opt" onclick="pick('grp-bowling',this,'Left Handed')">
+              <div class="radio-dot"></div> Left Handed
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goTo(2)">← Back</button>
+      <button class="btn-next" onclick="next(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 4: Business / Registration Type -->
+  <div class="page" id="pg4">
+    <div class="card">
+      <div class="section-label">Registration Type</div>
+
+      <div class="field">
+        <label>Are you registering as? <span class="req">*</span></label>
+        <div class="radio-group" id="grp-regtype">
+          <div class="radio-opt" onclick="pickRegType(this,'Distributor')">
+            <div class="radio-dot"></div> 🏬 Distributor
+          </div>
+          <div class="radio-opt" onclick="pickRegType(this,'Retail Store Owner')">
+            <div class="radio-dot"></div> 🛒 Retail Store Owner
+          </div>
+          <div class="radio-opt" onclick="pickRegType(this,'Executive')">
+            <div class="radio-dot"></div> 💼 Executive
+          </div>
+        </div>
+      </div>
+
+      <!-- Distributor -->
+      <div class="cond" id="cond-distributor">
+        <div class="cond-wrap">
+          <div class="section-label" style="margin-bottom:14px">Details of Distributor</div>
+          <div class="field">
+            <label>Firm Name <span class="req">*</span></label>
+            <input type="text" id="dist_firm" placeholder="Registered firm name">
+          </div>
+          <div class="field">
+            <label>Brand Name <span class="req">*</span></label>
+            <input type="text" id="dist_brand" placeholder="Brand you distribute">
+          </div>
+          <div class="field">
+            <label>GST Number <span class="req">*</span></label>
+            <input type="text" id="dist_gst" placeholder="15-digit GSTIN">
+          </div>
+        </div>
+      </div>
+
+      <!-- Retail Store Owner -->
+      <div class="cond" id="cond-retail">
+        <div class="cond-wrap">
+          <div class="section-label" style="margin-bottom:14px">Details of Retail Store Owner</div>
+          <div class="field">
+            <label>Retail Store Name <span class="req">*</span></label>
+            <input type="text" id="ret_store" placeholder="Name of your retail store">
+          </div>
+          <div class="field">
+            <label>GST Number <span class="req">*</span></label>
+            <input type="text" id="ret_gst" placeholder="15-digit GSTIN">
+          </div>
+          <div class="field">
+            <label>Configure <span class="req">*</span></label>
+            <select id="ret_config">
+              <option value="">— Select —</option>
+              <option>Retail Store Owner</option>
+              <option>Franchise</option>
+              <option>Authorized Dealer</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Executive -->
+      <div class="cond" id="cond-executive">
+        <div class="cond-wrap">
+          <div class="section-label" style="margin-bottom:14px">Details of Executive (Partner)</div>
+          <div class="field">
+            <label>Firm Name <span class="req">*</span></label>
+            <input type="text" id="exec_firm" placeholder="Partner firm name">
+          </div>
+          <div class="field">
+            <label>Brand Name <span class="req">*</span></label>
+            <input type="text" id="exec_brand" placeholder="Brand name">
+          </div>
+        </div>
+      </div>
+
+      <!-- Aadhaar upload (shown once a type is chosen) -->
+      <div class="field" id="aadhaarField" style="display:none; margin-top:16px">
+        <label>Aadhaar Card <span class="req">*</span></label>
+        <div class="upload-box" onclick="document.getElementById('aadhaarFile').click()">
+          <div class="uico">🪪</div>
+          <div>Upload your Aadhaar card</div>
+          <small>JPG, PNG, PDF · Max 10 MB</small>
+        </div>
+        <input type="file" id="aadhaarFile" accept="image/*,application/pdf" style="display:none" onchange="setFileName(this,'aadhaarName','aadhaarPreview')">
+        <div class="fname" id="aadhaarName"></div>
+        <img class="preview-img" id="aadhaarPreview" alt="Aadhaar preview">
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goTo(3)">← Back</button>
+      <button class="btn-next" onclick="next(4)">Next →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 5: Payment -->
+  <div class="page" id="pg5">
+    <div class="fee-banner">
+      <div class="fee-icon">💰</div>
+      <div>
+        <div class="fee-amount">₹5,000</div>
+        <div class="fee-note">Registration fee · Pay before submitting</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Bank Transfer / UPI</div>
+
+      <table class="bank-table">
+        <tr><td class="bk">Bank</td><td class="bv">City Union Bank, Tripunithura</td></tr>
+        <tr><td class="bk">Account Name</td><td class="bv">Garments Cricket Association Trust</td></tr>
+        <tr><td class="bk">Account No</td><td class="bv">500101011038466</td></tr>
+        <tr><td class="bk">IFSC Code</td><td class="bv">CIUB0000379</td></tr>
+        <tr><td class="bk">UPI ID</td><td class="bv">Eze0040230@CUB</td></tr>
+      </table>
+
+      <a class="upi-btn" href="upi://pay?pa=Eze0040230@CUB&pn=Garments%20Cricket%20Association&am=5000&cu=INR">
+        📲 Pay ₹5,000 via UPI App
+      </a>
+
+      <div class="contact-box">
+        <b>📞 Payment Support</b><br>
+        Govind S Varikkat &nbsp;·&nbsp; <b>+91 98468 82299</b><br>
+        <span style="font-size:12px">Keep your payment screenshot / UTR ready</span>
+      </div>
+
+      <div class="field">
+        <label>UTR / Transaction Reference Number <span class="req">*</span></label>
+        <input type="text" id="utr" placeholder="12-digit UTR number from bank / UPI app">
+        <div class="hint">Find this in your bank app under transaction details</div>
+      </div>
+
+      <div class="field">
+        <label>Payment Screenshot <span class="req">*</span></label>
+        <div class="upload-box" onclick="document.getElementById('ssFile').click()">
+          <div class="uico">🖼️</div>
+          <div>Upload payment confirmation screenshot</div>
+          <small>JPG, PNG · Max 10 MB</small>
+        </div>
+        <input type="file" id="ssFile" accept="image/*" style="display:none" onchange="setFileName(this,'ssName','ssPreview')">
+        <div class="fname" id="ssName"></div>
+        <img class="preview-img" id="ssPreview" alt="Screenshot preview">
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goTo(4)">← Back</button>
+      <button class="btn-next" onclick="submitForm()">Submit Registration</button>
+    </div>
+  </div>
+
+  <!-- PAGE 6: Success -->
+  <div class="page" id="pg6">
+    <div class="success-card">
+      <div class="success-ico">✅</div>
+      <div class="tag">Registration Complete</div>
+      <h2>You're Registered!</h2>
+      <p>
+        Thank you for registering for<br>
+        <b style="color:#1a1a1a">GCA Cricket Tournament Goa 2026</b>.<br><br>
+        Your registration will be confirmed after<br>
+        payment verification by the organizers.<br><br>
+        Keep your <b style="color:#1a1a1a">UTR number</b> and
+        <b style="color:#1a1a1a">payment screenshot</b><br>
+        ready if requested.<br><br>
+        For queries call:<br>
+        <a href="tel:+919846882299">+91 98468 82299</a> (Govind S Varikkat)
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Loading overlay -->
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <div class="spinner"></div>
+    <p>Submitting your registration…</p>
+  </div>
+</div>
+
+<script>
+  // ── State ─────────────────────────────────────────────
+  var vals = {};   // radio/select values keyed by group id
+
+  // ── Radio picker ──────────────────────────────────────
+  function pick(groupId, el, value) {
+    document.querySelectorAll('#' + groupId + ' .radio-opt').forEach(function(o) {
+      o.classList.remove('sel');
+    });
+    el.classList.add('sel');
+    vals[groupId] = value;
+  }
+
+  // ── Registration-type picker (toggles conditional blocks) ─
+  function pickRegType(el, value) {
+    pick('grp-regtype', el, value);
+    document.getElementById('cond-distributor').classList.toggle('show', value === 'Distributor');
+    document.getElementById('cond-retail').classList.toggle('show', value === 'Retail Store Owner');
+    document.getElementById('cond-executive').classList.toggle('show', value === 'Executive');
+    document.getElementById('aadhaarField').style.display = 'block';
+  }
+
+  // ── File name + image preview ─────────────────────────
+  function setFileName(input, targetId, previewId) {
+    var el = document.getElementById(targetId);
+    var f = input.files && input.files[0];
+    el.textContent = f ? '✓  ' + f.name : '';
+
+    var img = previewId ? document.getElementById(previewId) : null;
+    if (img) {
+      if (f && /^image\//.test(f.type)) {
+        img.src = URL.createObjectURL(f);
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+        img.removeAttribute('src');
+      }
+    }
+  }
+
+  // ── Read a file input as base64 (for upload) ──────────
+  function fileToObj(inputId) {
+    return new Promise(function(resolve) {
+      var f = document.getElementById(inputId).files[0];
+      if (!f) return resolve(null);
+      var r = new FileReader();
+      r.onload = function() {
+        resolve({ name: f.name, type: f.type, data: String(r.result).split(',')[1] });
+      };
+      r.onerror = function() { resolve(null); };
+      r.readAsDataURL(f);
+    });
+  }
+
+  // ── Navigation ────────────────────────────────────────
+  function goTo(n) {
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    document.getElementById('pg' + n).classList.add('active');
+    for (var i = 1; i <= 5; i++) {
+      var s = document.getElementById('st' + i);
+      if (!s) continue;
+      s.classList.remove('active', 'done');
+      if (i < n)  s.classList.add('done');
+      if (i === n) s.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Validation per page ───────────────────────────────
+  function validate(page) {
+    if (page === 1) {
+      if (!v('fullname'))    return alert('Please enter your full name.'),    false;
+      if (!v('phone'))       return alert('Please enter your phone number.'), false;
+      if (!v('dob'))         return alert('Please select your date of birth.'), false;
+      if (!v('bloodgroup'))  return alert('Please select your blood group.'), false;
+    }
+    if (page === 2) {
+      if (!v('address'))  return alert('Please enter your address.'), false;
+      if (!v('station'))  return alert('Please enter the nearest railway station.'), false;
+    }
+    if (page === 3) {
+      if (!vals['grp-position']) return alert('Please select your playing position.'), false;
+      if (!vals['grp-batting'])  return alert('Please select your batting hand.'), false;
+      if (!vals['grp-bowling'])  return alert('Please select your bowling hand.'), false;
+    }
+    if (page === 4) {
+      var rt = vals['grp-regtype'];
+      if (!rt) return alert('Please select how you are registering.'), false;
+      if (rt === 'Distributor') {
+        if (!v('dist_firm'))  return alert('Please enter the firm name.'),  false;
+        if (!v('dist_brand')) return alert('Please enter the brand name.'), false;
+        if (!v('dist_gst'))   return alert('Please enter the GST number.'), false;
+      }
+      if (rt === 'Retail Store Owner') {
+        if (!v('ret_store'))  return alert('Please enter the retail store name.'), false;
+        if (!v('ret_gst'))    return alert('Please enter the GST number.'), false;
+        if (!v('ret_config')) return alert('Please select a configuration.'), false;
+      }
+      if (rt === 'Executive') {
+        if (!v('exec_firm'))  return alert('Please enter the firm name.'),  false;
+        if (!v('exec_brand')) return alert('Please enter the brand name.'), false;
+      }
+      if (!document.getElementById('aadhaarFile').files.length)
+        return alert('Please upload your Aadhaar card.'), false;
+    }
+    if (page === 5) {
+      if (!v('utr')) return alert('Please enter the UTR / transaction number.'), false;
+      if (!document.getElementById('ssFile').files.length)
+        return alert('Please upload your payment screenshot.'), false;
+    }
+    return true;
+  }
+
+  function v(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+  function next(current) {
+    if (!validate(current)) return;
+    goTo(current + 1);
+  }
+
+  // ── Submit ────────────────────────────────────────────
+  function submitForm() {
+    if (!validate(5)) return;
+
+    // Show loading
+    document.getElementById('overlay').classList.add('show');
+
+    // ── Google Sheets Web App URL ─────────────────────────
+    // Replace this URL with your own Apps Script deployment URL.
+    // To set up:
+    // 1. Open your Google Sheet → Extensions → Apps Script
+    // 2. Paste the Code.gs in this project
+    // 3. Deploy → New deployment → Web App → Anyone → Deploy
+    // 4. Copy the URL and paste it below.
+    var SHEET_URL = 'https://script.google.com/macros/s/AKfycby0x8F9uhUOXNcyG4Ut3RziLTbVxOYdFfseIzpttVEZi3RZeV-nRoWODeyvPZ7rhuQw/exec';
+
+    var rt = vals['grp-regtype'] || '';
+
+    // Read all three file inputs as base64, then post.
+    Promise.all([
+      fileToObj('photoFile'),
+      fileToObj('ssFile'),
+      fileToObj('aadhaarFile')
+    ]).then(function(files) {
+      var payload = {
+        timestamp:        new Date().toISOString(),
+        fullName:         v('fullname'),
+        phone:            v('phone'),
+        dob:              v('dob'),
+        bloodGroup:       v('bloodgroup'),
+        address:          v('address'),
+        station:          v('station'),
+        position:         vals['grp-position'] || '',
+        batting:          vals['grp-batting']  || '',
+        bowling:          vals['grp-bowling']  || '',
+        registrationType: rt,
+        distFirm:         v('dist_firm'),
+        distBrand:        v('dist_brand'),
+        distGst:          v('dist_gst'),
+        retStore:         v('ret_store'),
+        retGst:           v('ret_gst'),
+        retConfig:        v('ret_config'),
+        execFirm:         v('exec_firm'),
+        execBrand:        v('exec_brand'),
+        utr:              v('utr'),
+        photo:            files[0],   // { name, type, data } | null
+        screenshot:       files[1],
+        aadhaar:          files[2]
+      };
+
+      if (SHEET_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE') {
+        // Demo mode — just show success after 1.5s
+        setTimeout(function() {
+          done();
+        }, 1500);
+        return;
+      }
+
+      // Apps Script doPost reads e.postData.contents. Using text/plain
+      // avoids a CORS pre-flight while still delivering the JSON body.
+      fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      })
+      .then(function() { done(); })
+      .catch(function() {
+        document.getElementById('overlay').classList.remove('show');
+        alert('Network error. Please check your connection and try again.');
+      });
+    });
+  }
+
+  function done() {
+    document.getElementById('overlay').classList.remove('show');
+    goTo(6);
+    document.getElementById('stepsBar').style.display = 'none';
+  }
+</script>
+</body>
+</html>
