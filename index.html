@@ -80,6 +80,16 @@
   }
   .header a { color: #8ce0b0; text-decoration: none; }
 
+  .header-logo {
+    display: block;
+    width: 68px;
+    height: auto;
+    margin: 0 auto 12px;
+    border-radius: 4px;
+    position: relative;
+    z-index: 2;
+  }
+
   /* STEP BAR */
   .steps {
     background: #fff;
@@ -439,6 +449,7 @@
   @media (max-width: 768px) {
     .main { padding: 22px 14px 50px; }
     .header { padding: 28px 18px 24px; }
+    .header-logo { width: 60px; }
     .header h1 { font-size: 30px; }
   }
 
@@ -449,6 +460,7 @@
     .step { padding: 11px 11px; font-size: 11px; gap: 5px; }
     .step .num { width: 20px; height: 20px; font-size: 10px; }
     .header { padding: 24px 16px 22px; }
+    .header-logo { width: 250px; }
     .header h1 { font-size: 27px; }
     .header .badge { font-size: 10px; letter-spacing: 1.5px; }
     .main { padding: 18px 12px 44px; }
@@ -558,6 +570,7 @@
 <body>
 
 <div class="header">
+  <img src="FINAL%20LOGO.PNG" alt="GCA Premier League 2026" class="header-logo">
   <div class="badge">🏏 Official Registration · Goa 2026</div>
   <h1>GCA Cricket Tournament<br>Player Registration</h1>
   <p>Contact us at <a href="mailto:gcagpl@gmail.com">gcagpl@gmail.com</a></p>
