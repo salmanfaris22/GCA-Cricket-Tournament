@@ -565,6 +565,83 @@
     padding: 0 2px; flex-shrink: 0;
   }
   .toast-close:hover { color: var(--text); }
+
+  /* CLOSING CTA */
+  .closing {
+    background: linear-gradient(145deg, #0d4a26 0%, #1a6b3c 55%, #22864c 100%);
+    padding: 48px 24px 52px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing::before {
+    content: '';
+    position: absolute;
+    top: -50px; left: -40px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .closing::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .closing-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .closing-eyebrow {
+    display: inline-block;
+    background: var(--gold);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .closing h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: #fff;
+    letter-spacing: 1.5px;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .closing .dont-miss {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #f0d278;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+  .closing p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .closing .see-you {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 1.5px;
+    margin-top: 18px;
+  }
+
+  @media (max-width: 480px) {
+    .closing { padding: 40px 18px 44px; }
+    .closing h2 { font-size: 26px; }
+    .closing .dont-miss { font-size: 19px; }
+  }
 </style>
 </head>
 <body>
@@ -605,7 +682,30 @@
         </div>
         <div class="field">
           <label>Date of Birth <span class="req">*</span></label>
-          <input type="date" id="dob">
+          <div class="row2" style="grid-template-columns: 1fr 1.4fr 1fr; gap: 8px">
+            <select id="dob_day" onchange="syncDob()" aria-label="Day">
+              <option value="">Day</option>
+            </select>
+            <select id="dob_month" onchange="syncDob()" aria-label="Month">
+              <option value="">Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <select id="dob_year" onchange="syncDob()" aria-label="Year">
+              <option value="">Year</option>
+            </select>
+          </div>
+          <input type="hidden" id="dob" value="">
         </div>
       </div>
 
@@ -804,12 +904,16 @@
       <div class="fee-icon">💰</div>
       <div>
         <div class="fee-amount">₹5,000</div>
-        <div class="fee-note">Registration fee · Pay before submitting</div>
+        <div class="fee-note">Registration fee · You can settle payment after 15 Aug</div>
       </div>
     </div>
 
     <div class="card">
       <div class="section-label">Bank Transfer / UPI</div>
+
+      <div style="font-size:13px;color:var(--green);background:var(--green-l);border:1px solid #b8ddc8;border-radius:9px;padding:12px 14px;margin-bottom:16px;line-height:1.55">
+        ℹ️ Payment is not required now. You can pay anytime <b>after 15 August</b>. Upload a screenshot only if you have already paid.
+      </div>
 
       <div class="qr-wrap">
         <img src="qr.png" alt="Scan to pay ₹5,000 via UPI" class="qr-img">
@@ -831,15 +935,15 @@
       <div class="contact-box">
         <b>📞 Payment Support</b><br>
         Govind S Varikkat &nbsp;·&nbsp; <b>+91 98468 82299</b><br>
-        <span style="font-size:12px">Keep your payment screenshot ready</span>
+        <span style="font-size:12px">Payment can be settled after 15 August</span>
       </div>
 
       <div class="field">
-        <label>Payment Screenshot <span class="req">*</span></label>
+        <label>Payment Screenshot <span style="color:var(--muted);font-weight:400">(optional)</span></label>
         <div class="upload-box" onclick="document.getElementById('ssFile').click()">
           <div class="uico">🖼️</div>
-          <div>Upload payment confirmation screenshot</div>
-          <small>JPG, PNG · Max 10 MB</small>
+          <div>Upload payment screenshot if already paid</div>
+          <small>JPG, PNG · Max 10 MB · Optional</small>
         </div>
         <input type="file" id="ssFile" accept="image/*" style="display:none" onchange="setFileName(this,'ssName','ssPreview')">
         <div class="fname" id="ssName"></div>
@@ -866,10 +970,8 @@
       <p>
         Thank you for registering for<br>
         <b style="color:#1a1a1a">GCA Cricket Tournament Goa 2026</b>.<br><br>
-        Your registration will be confirmed after<br>
-        payment verification by the organizers.<br><br>
-        Keep your <b style="color:#1a1a1a">payment screenshot</b><br>
-        ready if requested.<br><br>
+        Payment is not required now.<br>
+        You can settle the fee <b style="color:#1a1a1a">after 15 August</b>.<br><br>
         For queries call:<br>
         <a href="tel:+919846882299">+91 98468 82299</a> (Govind S Varikkat)
       </p>
@@ -877,6 +979,17 @@
   </div>
 
 </div>
+
+<section class="closing" aria-label="Tournament invitation">
+  <div class="closing-inner">
+    <div class="closing-eyebrow">Goa 2026</div>
+    <h2>Goa Cricket Tournament 2026 🏏🌴</h2>
+    <div class="dont-miss">Don't Miss It!</div>
+    <p>Get ready for thrilling matches, unforgettable moments, and endless fun!</p>
+    <p>Bring your team, cheer your favorites, and make memories in Goa.</p>
+    <div class="see-you">See You There!</div>
+  </div>
+</section>
 
 <!-- Toast notification -->
 <div class="toast" id="toast">
@@ -1077,10 +1190,6 @@
       if (!vals['grp-batting'])  return notify('Please select your batting hand.'), false;
       if (!vals['grp-bowling'])  return notify('Please select your bowling hand.'), false;
     }
-    if (page === 4) {
-      if (!document.getElementById('ssFile').files.length)
-        return notify('Please upload your payment screenshot.'), false;
-    }
     return true;
   }
 
@@ -1178,14 +1287,48 @@
     document.getElementById('stepsBar').style.display = 'none';
   }
 
+  // ── DOB dropdown helpers ──────────────────────────────
+  function fillDobOptions() {
+    var daySel = document.getElementById('dob_day');
+    var yearSel = document.getElementById('dob_year');
+    var thisYear = new Date().getFullYear();
+    for (var d = 1; d <= 31; d++) {
+      var dv = d < 10 ? '0' + d : String(d);
+      daySel.innerHTML += '<option value="' + dv + '">' + d + '</option>';
+    }
+    for (var y = thisYear - 12; y >= thisYear - 80; y--) {
+      yearSel.innerHTML += '<option value="' + y + '">' + y + '</option>';
+    }
+  }
+
+  function syncDob() {
+    var day = document.getElementById('dob_day').value;
+    var month = document.getElementById('dob_month').value;
+    var year = document.getElementById('dob_year').value;
+    document.getElementById('dob').value = (day && month && year) ? (year + '-' + month + '-' + day) : '';
+    saveState();
+  }
+
+  function applyDobToSelects(iso) {
+    if (!iso || iso.indexOf('-') === -1) return;
+    var parts = iso.split('-');
+    if (parts.length !== 3) return;
+    document.getElementById('dob_year').value = parts[0];
+    document.getElementById('dob_month').value = parts[1];
+    document.getElementById('dob_day').value = parts[2];
+  }
+
   // ── Init: attach auto-save listeners + restore any draft ─
   (function init() {
+    fillDobOptions();
     document.querySelectorAll('.main input, .main select, .main textarea').forEach(function(el) {
-      if (el.type === 'file') return;
+      if (el.type === 'file' || el.type === 'hidden') return;
       el.addEventListener('input', saveState);
       el.addEventListener('change', saveState);
     });
     loadState();
+    // Restore DOB dropdowns from saved hidden value
+    applyDobToSelects(document.getElementById('dob').value);
   })();
 </script>
 </body>
