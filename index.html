@@ -355,6 +355,56 @@
   .upi-btn:hover { background: var(--green-d); }
   .upi-btn:active { transform: scale(0.99); }
 
+  /* PAY TO MOBILE NUMBER */
+  .apps-note {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 2;
+    margin-bottom: 12px;
+  }
+  .app-pill {
+    display: inline-block;
+    background: var(--green-l);
+    color: var(--green);
+    border: 1px solid #b8ddc8;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 2px;
+  }
+  .pay-num {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 13px;
+    margin-bottom: 10px;
+    background: #fff;
+  }
+  .pn-name { font-size: 12.5px; color: var(--muted); }
+  .pn-num { font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: 0.3px; margin-top: 2px; }
+  .pn-acts { display: flex; gap: 7px; flex-shrink: 0; }
+  .pn-btn {
+    display: inline-block;
+    border: 1px solid var(--green);
+    background: #fff;
+    color: var(--green);
+    border-radius: 8px;
+    padding: 7px 13px;
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .pn-btn:hover { background: var(--green-l); }
+  .pn-btn.call { background: var(--green); color: #fff; }
+  .pn-btn.call:hover { background: var(--green-d); }
+
   /* CONTACT */
   .contact-box {
     background: var(--green-l);
@@ -912,7 +962,7 @@
       <div class="section-label">Bank Transfer / UPI</div>
 
       <div style="font-size:13px;color:var(--green);background:var(--green-l);border:1px solid #b8ddc8;border-radius:9px;padding:12px 14px;margin-bottom:16px;line-height:1.55">
-        ℹ️ Payment is not required now. You can pay anytime <b>after 15 August</b>. Upload a screenshot only if you have already paid.
+        ℹ️ Payment is not required now. You can pay anytime <b>after 15 August</b>. Once you have paid, <b>send the payment screenshot</b> — upload it below or WhatsApp it to the numbers given below.
       </div>
 
       <div class="qr-wrap">
@@ -932,10 +982,43 @@
         📲 Pay ₹5,000 via UPI App
       </a>
 
-      <div class="contact-box">
+      <div class="section-label" style="margin-top:22px">Pay to Mobile Number</div>
+
+      <div class="apps-note">
+        You can also send ₹5,000 to these numbers using
+        <span class="app-pill">GPay</span>
+        <span class="app-pill">PhonePe</span>
+        <span class="app-pill">Paytm</span>
+        or any UPI app.
+      </div>
+
+      <div class="pay-num">
+        <div class="pn-info">
+          <div class="pn-name">Junied DX</div>
+          <div class="pn-num">+91 90613 03300</div>
+        </div>
+        <div class="pn-acts">
+          <button type="button" class="pn-btn" onclick="copyNum('9061303300', this)">Copy</button>
+          <a class="pn-btn call" href="tel:+919061303300">Call</a>
+        </div>
+      </div>
+
+      <div class="pay-num">
+        <div class="pn-info">
+          <div class="pn-name">Govind Varikatte</div>
+          <div class="pn-num">+91 98468 82299</div>
+        </div>
+        <div class="pn-acts">
+          <button type="button" class="pn-btn" onclick="copyNum('9846882299', this)">Copy</button>
+          <a class="pn-btn call" href="tel:+919846882299">Call</a>
+        </div>
+      </div>
+
+      <div class="contact-box" style="margin-top:16px">
         <b>📞 Payment Support</b><br>
-        Govind S Varikkat &nbsp;·&nbsp; <b>+91 98468 82299</b><br>
-        <span style="font-size:12px">Payment can be settled after 15 August</span>
+        Junied DX &nbsp;·&nbsp; <b>+91 90613 03300</b><br>
+        Govind Varikatte &nbsp;·&nbsp; <b>+91 98468 82299</b><br>
+        <span style="font-size:12px">Payment can be settled after 15 August · Send the screenshot after paying</span>
       </div>
 
       <div class="field">
@@ -971,9 +1054,11 @@
         Thank you for registering for<br>
         <b style="color:#1a1a1a">GCA Cricket Tournament Goa 2026</b>.<br><br>
         Payment is not required now.<br>
-        You can settle the fee <b style="color:#1a1a1a">after 15 August</b>.<br><br>
-        For queries call:<br>
-        <a href="tel:+919846882299">+91 98468 82299</a> (Govind S Varikkat)
+        You can settle the fee <b style="color:#1a1a1a">after 15 August</b>.<br>
+        After paying, please <b style="color:#1a1a1a">send the payment screenshot</b>.<br><br>
+        For payment &amp; queries call:<br>
+        <a href="tel:+919061303300">+91 90613 03300</a> (Junied DX)<br>
+        <a href="tel:+919846882299">+91 98468 82299</a> (Govind Varikatte)
       </p>
     </div>
   </div>
@@ -1083,6 +1168,31 @@
   }
   function hideToast() {
     document.getElementById('toast').classList.remove('show');
+  }
+
+  // ── Copy a payment number ─────────────────────────────
+  function copyNum(num, btn) {
+    function ok() {
+      var old = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      setTimeout(function() { btn.textContent = old; }, 1600);
+      notify('Number copied. Paste it in GPay / PhonePe / Paytm.', 'success');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(num).then(ok, function() { fallbackCopy(num, ok); });
+    } else {
+      fallbackCopy(num, ok);
+    }
+  }
+  function fallbackCopy(num, ok) {
+    var ta = document.createElement('textarea');
+    ta.value = num;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); ok(); } catch (e) { notify('Copy failed — please note the number manually.'); }
+    document.body.removeChild(ta);
   }
 
   // ── Radio picker ──────────────────────────────────────
