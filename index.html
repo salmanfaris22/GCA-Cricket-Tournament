@@ -331,79 +331,48 @@
   .bank-table .bk { color: var(--muted); width: 45%; }
   .bank-table .bv { font-weight: 500; color: var(--text); }
 
-  /* UPI BTN */
-  .upi-btn {
+  /* UPI APP BUTTONS */
+  .app-btns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin-bottom: 9px;
+  }
+  .app-btn {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    width: 100%;
-    background: var(--green);
-    color: #fff;
-    text-align: center;
-    padding: 14px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 15px;
+    gap: 7px;
+    padding: 13px 6px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 11px;
     text-decoration: none;
-    margin-bottom: 14px;
-    border: none;
     cursor: pointer;
-    letter-spacing: 0.2px;
-    transition: background 0.15s, transform 0.1s;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
   }
-  .upi-btn:hover { background: var(--green-d); }
-  .upi-btn:active { transform: scale(0.99); }
-
-  /* PAY TO MOBILE NUMBER */
-  .apps-note {
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 2;
-    margin-bottom: 12px;
-  }
-  .app-pill {
-    display: inline-block;
-    background: var(--green-l);
-    color: var(--green);
-    border: 1px solid #b8ddc8;
-    border-radius: 20px;
-    padding: 3px 10px;
+  .app-btn:active { transform: scale(0.98); }
+  .app-ico { width: 27px; height: 27px; display: block; }
+  .app-name {
     font-size: 12px;
     font-weight: 600;
-    margin: 0 2px;
+    color: var(--text);
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
   }
-  .pay-num {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 11px 13px;
-    margin-bottom: 10px;
-    background: #fff;
+  .app-btn.gpay:hover { border-color: #4285F4; box-shadow: 0 2px 8px rgba(66,133,244,0.18); }
+  .app-btn.ppe:hover  { border-color: #5F259F; box-shadow: 0 2px 8px rgba(95,37,159,0.18); }
+  .app-btn.ppe .app-name { color: #5F259F; }
+  .app-btn.ptm:hover  { border-color: #00BAF2; box-shadow: 0 2px 8px rgba(0,186,242,0.18); }
+  .app-hint {
+    font-size: 11.5px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 4px;
+    line-height: 1.5;
   }
-  .pn-name { font-size: 12.5px; color: var(--muted); }
-  .pn-num { font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: 0.3px; margin-top: 2px; }
-  .pn-acts { display: flex; gap: 7px; flex-shrink: 0; }
-  .pn-btn {
-    display: inline-block;
-    border: 1px solid var(--green);
-    background: #fff;
-    color: var(--green);
-    border-radius: 8px;
-    padding: 7px 13px;
-    font-size: 12.5px;
-    font-weight: 600;
-    font-family: inherit;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .pn-btn:hover { background: var(--green-l); }
-  .pn-btn.call { background: var(--green); color: #fff; }
-  .pn-btn.call:hover { background: var(--green-d); }
 
   /* CONTACT */
   .contact-box {
@@ -532,6 +501,10 @@
     .btn-next { font-size: 18px; }
     .qr-img { width: 160px; max-width: 80%; }
     .bank-table { font-size: 12px; }
+    .app-btns { gap: 7px; }
+    .app-btn { padding: 11px 3px; }
+    .app-name { font-size: 11px; }
+    .app-ico { width: 24px; height: 24px; }
   }
 
   /* Wider screens — keep the form a comfortable reading width */
@@ -954,7 +927,7 @@
       <div class="fee-icon">💰</div>
       <div>
         <div class="fee-amount">₹5,000</div>
-        <div class="fee-note">Registration fee · You can settle payment after 15 Aug</div>
+        <div class="fee-note">Registration fee · You can settle payment before 15 Aug</div>
       </div>
     </div>
 
@@ -962,7 +935,7 @@
       <div class="section-label">Bank Transfer / UPI</div>
 
       <div style="font-size:13px;color:var(--green);background:var(--green-l);border:1px solid #b8ddc8;border-radius:9px;padding:12px 14px;margin-bottom:16px;line-height:1.55">
-        ℹ️ Payment is not required now. You can pay anytime <b>after 15 August</b>. Once you have paid, <b>send the payment screenshot</b> — upload it below or WhatsApp it to the numbers given below.
+        ℹ️ Payment is not required right now. You can pay anytime <b>before 15 August</b>. Once you have paid, <b>upload the payment screenshot</b> below.
       </div>
 
       <div class="qr-wrap">
@@ -978,47 +951,41 @@
         <tr><td class="bk">UPI ID</td><td class="bv">Eze0040230@CUB</td></tr>
       </table>
 
-      <a class="upi-btn" href="upi://pay?pa=Eze0040230@CUB&pn=Garments%20Cricket%20Association&am=5000&cu=INR">
-        📲 Pay ₹5,000 via UPI App
-      </a>
+      <div class="app-btns">
+        <a class="app-btn gpay" href="tez://upi/pay?pa=Eze0040230@CUB&pn=Garments%20Cricket%20Association&am=5000&cu=INR">
+          <svg class="app-ico" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          <span class="app-name">Google&nbsp;Pay</span>
+        </a>
 
-      <div class="section-label" style="margin-top:22px">Pay to Mobile Number</div>
+        <a class="app-btn ppe" href="phonepe://pay?pa=Eze0040230@CUB&pn=Garments%20Cricket%20Association&am=5000&cu=INR">
+          <svg class="app-ico" viewBox="0 0 48 48" aria-hidden="true">
+            <rect width="48" height="48" rx="11" fill="#5F259F"/>
+            <text x="24" y="33" text-anchor="middle" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Pe</text>
+          </svg>
+          <span class="app-name">PhonePe</span>
+        </a>
 
-      <div class="apps-note">
-        You can also send ₹5,000 to these numbers using
-        <span class="app-pill">GPay</span>
-        <span class="app-pill">PhonePe</span>
-        <span class="app-pill">Paytm</span>
-        or any UPI app.
+        <a class="app-btn ptm" href="paytmmp://pay?pa=Eze0040230@CUB&pn=Garments%20Cricket%20Association&am=5000&cu=INR">
+          <svg class="app-ico" viewBox="0 0 48 48" aria-hidden="true">
+            <rect width="48" height="48" rx="11" fill="#00BAF2"/>
+            <text x="24" y="34" text-anchor="middle" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="27" font-weight="700">P</text>
+          </svg>
+          <span class="app-name"><b style="color:#002970">Pay</b><b style="color:#00BAF2">tm</b></span>
+        </a>
       </div>
 
-      <div class="pay-num">
-        <div class="pn-info">
-          <div class="pn-name">Junied DX</div>
-          <div class="pn-num">+91 90613 03300</div>
-        </div>
-        <div class="pn-acts">
-          <button type="button" class="pn-btn" onclick="copyNum('9061303300', this)">Copy</button>
-          <a class="pn-btn call" href="tel:+919061303300">Call</a>
-        </div>
-      </div>
+      <div class="app-hint">Tap an app to pay ₹5,000 · Amount and UPI ID are filled in automatically</div>
 
-      <div class="pay-num">
-        <div class="pn-info">
-          <div class="pn-name">Govind Varikatte</div>
-          <div class="pn-num">+91 98468 82299</div>
-        </div>
-        <div class="pn-acts">
-          <button type="button" class="pn-btn" onclick="copyNum('9846882299', this)">Copy</button>
-          <a class="pn-btn call" href="tel:+919846882299">Call</a>
-        </div>
-      </div>
-
-      <div class="contact-box" style="margin-top:16px">
+      <div class="contact-box" style="margin-top:18px">
         <b>📞 Payment Support</b><br>
         Junied DX &nbsp;·&nbsp; <b>+91 90613 03300</b><br>
         Govind Varikatte &nbsp;·&nbsp; <b>+91 98468 82299</b><br>
-        <span style="font-size:12px">Payment can be settled after 15 August · Send the screenshot after paying</span>
+        <span style="font-size:12px">Payment can be settled before 15 August · Send the screenshot after paying</span>
       </div>
 
       <div class="field">
@@ -1054,7 +1021,7 @@
         Thank you for registering for<br>
         <b style="color:#1a1a1a">GCA Cricket Tournament Goa 2026</b>.<br><br>
         Payment is not required now.<br>
-        You can settle the fee <b style="color:#1a1a1a">after 15 August</b>.<br>
+        You can settle the fee <b style="color:#1a1a1a">before 15 August</b>.<br>
         After paying, please <b style="color:#1a1a1a">send the payment screenshot</b>.<br><br>
         For payment &amp; queries call:<br>
         <a href="tel:+919061303300">+91 90613 03300</a> (Junied DX)<br>
@@ -1168,31 +1135,6 @@
   }
   function hideToast() {
     document.getElementById('toast').classList.remove('show');
-  }
-
-  // ── Copy a payment number ─────────────────────────────
-  function copyNum(num, btn) {
-    function ok() {
-      var old = btn.textContent;
-      btn.textContent = 'Copied ✓';
-      setTimeout(function() { btn.textContent = old; }, 1600);
-      notify('Number copied. Paste it in GPay / PhonePe / Paytm.', 'success');
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(num).then(ok, function() { fallbackCopy(num, ok); });
-    } else {
-      fallbackCopy(num, ok);
-    }
-  }
-  function fallbackCopy(num, ok) {
-    var ta = document.createElement('textarea');
-    ta.value = num;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); ok(); } catch (e) { notify('Copy failed — please note the number manually.'); }
-    document.body.removeChild(ta);
   }
 
   // ── Radio picker ──────────────────────────────────────
