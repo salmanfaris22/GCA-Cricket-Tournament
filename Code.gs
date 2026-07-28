@@ -1,21 +1,39 @@
 /**
  * GCA Cricket Tournament Goa 2026 — Registration backend
  *
- * SETUP:
+ * Serves two front-ends:
+ *   index.html      — the public registration form (POSTs a new registration)
+ *   dashboard.html  — the admin dashboard (POSTs { action: 'updatePayment' }
+ *                     to attach a payment screenshot to an existing row)
+ *
+ * ── UPDATING AN ALREADY-DEPLOYED SCRIPT ──────────────────────────────
  * 1. Open your Google Sheet → Extensions → Apps Script
- * 2. Delete any existing code, paste THIS whole file
- * 3. Save (💾)
- * 4. Deploy → New deployment → Web app
+ * 2. Select all, paste THIS whole file, Save (💾)
+ * 3. Deploy → Manage deployments → ✏️ (edit the existing one)
+ *      → Version: New version → Deploy
+ *    Editing the existing deployment KEEPS the same /exec URL, so
+ *    index.html and dashboard.html need no changes.
+ * 4. Check it worked: open the /exec URL in a browser. The reply must
+ *    list "updatePayment" under actions.
+ *
+ * ── FIRST-TIME DEPLOY ────────────────────────────────────────────────
+ *    Deploy → New deployment → Web app
  *      - Execute as: Me
  *      - Who has access: Anyone
- * 5. Copy the Web app URL (ends in /exec) and paste it into
- *    index.html (the SHEET_URL variable in submitForm).
+ *    Then paste the Web app URL (ends in /exec) into SHEET_URL in
+ *    index.html and SCRIPT_URL in dashboard.html.
+ *
+ * NOTE: the deploy dialog also shows a "Library URL" that looks like
+ *   https://script.google.com/macros/library/d/<scriptId>/<version>
+ * That one is only for importing this script into another Apps Script
+ * project. It is NOT an endpoint — the pages must use the /exec URL.
  *
  * Uploaded files (profile photo, payment screenshot, Aadhaar) are saved
  * to a Drive folder called "GCA Registration Uploads" and the sheet
  * stores a shareable link to each file.
  */
 
+var SCRIPT_VERSION = '2026-07-29';   // bump when you paste a new copy
 var UPLOAD_FOLDER_NAME = 'GCA Registration Uploads';
 
 var HEADERS = [
@@ -33,6 +51,15 @@ function doPost(e) {
   lock.waitLock(30000);
 
   try {
+    var d = JSON.parse(e.postData.contents);
+
+    // The dashboard posts { action: 'updatePayment' } to attach a payment
+    // screenshot to an existing registration. Everything else is a new
+    // registration coming from the form.
+    if (d.action === 'updatePayment') {
+      return updatePayment_(d);
+    }
+
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
     // Add header row once, if the sheet is empty
@@ -40,7 +67,6 @@ function doPost(e) {
       sheet.appendRow(HEADERS);
     }
 
-    var d = JSON.parse(e.postData.contents);
     var safeName = (d.fullName || 'registrant').replace(/[^\w\- ]+/g, '').trim() || 'registrant';
 
     // Save uploads, but never let a Drive problem drop the registration.
@@ -65,6 +91,82 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * Attaches (or replaces) the payment screenshot of an existing registration,
+ * and can also record a UTR reference. Called by dashboard.html.
+ *
+ * Expects: {
+ *   action: 'updatePayment',
+ *   rowKey: '<the Timestamp cell of that row>',   // preferred match
+ *   phone:  '9061303300',                         // fallback match
+ *   utr:    'optional reference',
+ *   screenshot: { name, type, data(base64) }      // optional
+ * }
+ * Returns { result:'ok', url, row } so the dashboard can update in place.
+ */
+function updatePayment_(d) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var values = sheet.getDataRange().getValues();
+  if (values.length < 2) {
+    return jsonOut_({ result: 'error', message: 'The sheet has no registrations yet.' });
+  }
+
+  var head = values[0].map(function (h) { return String(h).trim(); });
+  var tsCol    = head.indexOf('Timestamp');
+  var nameCol  = head.indexOf('Full Name');
+  var phoneCol = head.indexOf('Phone');
+  var payCol   = head.indexOf('Payment Screenshot');
+  var utrCol   = head.indexOf('UTR');
+
+  if (payCol === -1) {
+    return jsonOut_({ result: 'error', message: 'No "Payment Screenshot" column found in the sheet.' });
+  }
+
+  var wantKey   = String(d.rowKey || '').trim();
+  var wantPhone = digits_(d.phone);
+  var target = -1;
+
+  for (var i = 1; i < values.length; i++) {
+    if (wantKey && tsCol > -1 && cellKey_(values[i][tsCol]) === wantKey) { target = i; break; }
+    if (!wantKey && wantPhone && phoneCol > -1 && digits_(values[i][phoneCol]) === wantPhone) { target = i; break; }
+  }
+  // Second pass on the phone number when the timestamp did not match
+  if (target === -1 && wantPhone && phoneCol > -1) {
+    for (var j = 1; j < values.length; j++) {
+      if (digits_(values[j][phoneCol]) === wantPhone) { target = j; break; }
+    }
+  }
+  if (target === -1) {
+    return jsonOut_({ result: 'error', message: 'That registration was not found in the sheet.' });
+  }
+
+  var url = '';
+  if (d.screenshot && d.screenshot.data) {
+    var who = String(nameCol > -1 ? values[target][nameCol] : 'registrant')
+      .replace(/[^\w\- ]+/g, '').trim() || 'registrant';
+    url = saveFile_(getUploadFolder_(), d.screenshot, 'payment_' + who);
+    sheet.getRange(target + 1, payCol + 1).setValue(url);
+  }
+  if (utrCol > -1 && d.utr) {
+    sheet.getRange(target + 1, utrCol + 1).setValue(txt_(d.utr));
+  }
+
+  return jsonOut_({ result: 'ok', url: url, row: target + 1 });
+}
+
+/** Timestamps arrive as text or as a Date depending on the cell format. */
+function cellKey_(v) {
+  if (v instanceof Date) return v.toISOString();
+  return String(v == null ? '' : v).trim();
+}
+
+/** Keeps only the digits, so 9061303300 and +91 90613 03300 compare equal. */
+function digits_(v) {
+  var s = String(v == null ? '' : v).replace(/\D/g, '');
+  if (s.length === 12 && s.indexOf('91') === 0) s = s.substring(2);
+  return s;
 }
 
 /** Returns the shared upload folder, creating it on first use. */
@@ -133,7 +235,15 @@ function jsonOut_(obj) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-// Lets you open the Web app URL in a browser to confirm it's live
+/**
+ * Open the Web app URL in a browser to confirm which version is live.
+ * If "actions" does NOT list updatePayment, the deployment is still running
+ * the old code — re-deploy (Manage deployments → edit → New version).
+ */
 function doGet() {
-  return jsonOut_({ status: 'GCA registration endpoint is live' });
+  return jsonOut_({
+    status: 'GCA registration endpoint is live',
+    version: SCRIPT_VERSION,
+    actions: ['register', 'updatePayment']
+  });
 }

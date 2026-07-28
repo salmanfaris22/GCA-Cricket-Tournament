@@ -586,6 +586,32 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
 .sheet-actions { display: flex; gap: 8px; flex-wrap: wrap; padding: 4px 18px 20px; }
 .sheet-actions .btn { flex: 1 1 140px; justify-content: center; }
 
+/* ── PAYMENT UPLOAD (detail sheet) ───────────────────────────── */
+.pay-block {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 13px 14px 14px; margin-top: 18px;
+}
+.pay-block h4 { margin-bottom: 10px; }
+.pay-state { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin-bottom: 11px; }
+.pay-utr { font-size: 12px; color: var(--text-secondary); }
+.pay-thumb {
+  display: block; border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden; background: var(--surface-3); margin-bottom: 12px;
+  transition: border-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease);
+}
+.pay-thumb:hover { border-color: var(--brand); transform: translateY(-2px); }
+.pay-thumb img { display: block; width: 100%; max-height: 260px; object-fit: contain; background: #fff; }
+.pay-thumb-fb { display: none; padding: 12px 14px; font-size: 13px; color: var(--brand); font-weight: 600; }
+.pay-thumb.no-img img { display: none; }
+.pay-thumb.no-img .pay-thumb-fb { display: block; }
+.pay-none { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+.pay-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.pay-actions .btn { flex: 1 1 180px; justify-content: center; }
+.btn.busy { opacity: .75; cursor: progress; }
+.btn .sp { animation: spin .9s linear infinite; }
+.pay-hint { font-size: 11.5px; color: var(--text-muted); margin-top: 9px; line-height: 1.45; }
+.pay-hint.err { color: var(--danger); font-weight: 600; }
+
 /* ── TOAST ───────────────────────────────────────────────────── */
 .toast {
   position: fixed; left: 50%; bottom: 26px; z-index: 120;
@@ -597,6 +623,8 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
   transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out);
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
+/* Clear of the detail sheet's action buttons while it is open */
+.scrim.show ~ .toast { bottom: 96px; }
 .toast svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 /* ── MOBILE: TABLE → CARDS ───────────────────────────────────── */
@@ -672,6 +700,7 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
   <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.4-5.2A8.5 8.5 0 1 1 21 11.5z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.4l3.4 2"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 20h16"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.3v.2"/></symbol>
   <symbol id="i-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></symbol>
   <symbol id="i-sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M3.5 9.5h17M3.5 15h17M9.5 3.5v17"/></symbol>
@@ -875,6 +904,18 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
   // The sheet must stay "Anyone with the link can view".
   // ══════════════════════════════════════════════════════════════
   var SHEET_ID = '13bTCTYViC6G5RxpHv9-JyuEsZxoVhfSf8Xs9Zkt0PsQ';
+
+  // The Apps Script WEB APP url — the one ending in /exec, same one the
+  // registration form posts to. (The "Library URL" the deploy dialog also
+  // shows, /macros/library/d/…, is not an endpoint and will not work here.)
+  // Uploading a payment screenshot needs the updatePayment_ handler, so after
+  // pasting a new Code.gs re-deploy with Manage deployments → edit → New
+  // version, which keeps this URL unchanged.
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrQyA-DITHaNkjE2eSeFnterYfqI52Ia11w8mQcq7VATNWfSTZvmfpMwgfrmAgc91c/exec';
+  var MAX_UPLOAD_MB = 10;
+
+  // Set once the deployed script confirms it understands updatePayment.
+  var uploadReady = null;
   // Every tqx directive has to live inside the one tqx parameter, ";"-separated.
   function gvizUrl(handler) {
     return 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq' +
@@ -1064,6 +1105,13 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
         $('#lastSync').textContent = 'Live · synced ' + fmtTime(new Date());
         buildFilterOptions();
         apply();
+        // Keep an open detail sheet pointing at the freshly loaded row
+        if (openRow) {
+          var key = openRow.ts;
+          for (var i = 0; i < STATE.rows.length; i++) {
+            if (STATE.rows[i].ts === key) { openDetail(STATE.rows[i]); break; }
+          }
+        }
         if (isRefresh) toast('Synced ' + STATE.rows.length + ' registrations');
       })
       .catch(function (err) {
@@ -1697,9 +1745,10 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
   // ══════════════════════════════════════════════════════════════
   // DETAIL SHEET
   // ══════════════════════════════════════════════════════════════
-  var lastFocus = null;
+  var lastFocus = null, openRow = null;
   function openDetail(r) {
     lastFocus = document.activeElement;
+    openRow = r;
     var tm = typeMeta(r.regType);
     var av = $('#shAvatar');
     av.textContent = initials(r.fullName);
@@ -1736,13 +1785,14 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
         ['GST', r.gst ? '<span class="num">' + esc(r.gst) + '</span>' : ''],
         ['Retail config', esc(r.retConfig)]
       ]) +
-      group('Payment & documents', [
-        ['UTR', r.utr ? '<span class="num">' + esc(r.utr) + '</span>' : ''],
+      group('Documents', [
         ['Profile photo', fileLink(r.photo, r.hasPhoto)],
-        ['Payment screenshot', fileLink(r.payment, r.hasPayment)],
         ['Aadhaar card', fileLink(r.aadhaar, r.hasAadhaar)],
         ['Registered', esc(r.date ? fmtDate(r.date) + ' · ' + fmtTime(r.date) : '')]
-      ]);
+      ]) +
+      paymentBlock(r);
+
+    wirePayment(r);
 
     $('#shActions').innerHTML =
       '<a class="btn primary" href="tel:+' + esc(wa) + '"><svg><use href="#i-phone"/></svg> Call</a>' +
@@ -1757,7 +1807,159 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
     var scrim = $('#scrim');
     scrim.classList.remove('show');
     setTimeout(function () { scrim.hidden = true; }, REDUCED ? 0 : 220);
+    openRow = null;
     if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // PAYMENT SCREENSHOT — upload / replace straight from the dashboard
+  // ══════════════════════════════════════════════════════════════
+  // Drive share links look like /file/d/<id>/view — the id gives us a
+  // thumbnail we can show inline.
+  function driveThumb(url) {
+    var m = String(url || '').match(/[-\w]{25,}/);
+    return m ? 'https://drive.google.com/thumbnail?id=' + m[0] + '&sz=w600' : '';
+  }
+
+  // A plain GET tells us which version of the script is deployed. It only
+  // reads, so it is safe to call on load.
+  function checkScript() {
+    if (!SCRIPT_URL || SCRIPT_URL.indexOf('/exec') === -1) { uploadReady = false; return; }
+    fetch(SCRIPT_URL, { method: 'GET' })
+      .then(function (res) { return res.json(); })
+      .then(function (out) {
+        uploadReady = !!(out && out.actions && out.actions.indexOf('updatePayment') > -1);
+      })
+      .catch(function () { uploadReady = null; });   // unknown — let the upload try anyway
+  }
+
+  function paymentBlock(r) {
+    var thumb = r.hasPayment ? driveThumb(r.payment) : '';
+    return '<div class="kv-group pay-block">' +
+      '<h4>Payment</h4>' +
+      '<div class="pay-state">' +
+        '<span class="pill ' + (r.payConfirmed ? 'p-yes' : 'p-no') + '">' +
+          '<svg class="p-i"><use href="#' + (r.payConfirmed ? 'i-check' : 'i-clock') + '"/></svg>' +
+          (r.payConfirmed ? 'Confirmed' : 'Pending') + '</span>' +
+        (r.utr ? '<span class="pay-utr num">UTR ' + esc(r.utr) + '</span>' : '') +
+      '</div>' +
+      (thumb
+        ? '<a class="pay-thumb" href="' + esc(r.payment) + '" target="_blank" rel="noopener" title="Open the full screenshot">' +
+            '<img src="' + esc(thumb) + '" alt="Payment screenshot for ' + esc(r.fullName) + '" loading="lazy" ' +
+            'onerror="this.closest(\'.pay-thumb\').classList.add(\'no-img\')">' +
+            '<span class="pay-thumb-fb">Screenshot uploaded — open file</span></a>'
+        : '<p class="pay-none">No payment screenshot on record yet.</p>') +
+      '<div class="pay-actions">' +
+        '<button class="btn btn-sm primary" type="button" id="payPick">' +
+          '<svg><use href="#i-upload"/></svg> ' + (r.hasPayment ? 'Replace screenshot' : 'Upload screenshot') +
+        '</button>' +
+        '<input type="file" id="payFile" accept="image/*" hidden>' +
+      '</div>' +
+      '<p class="pay-hint' + (uploadReady === false ? ' err' : '') + '" id="payHint">' +
+        (uploadReady === false
+          ? 'The deployed Apps Script does not have the updatePayment handler yet — paste the new Code.gs, then Deploy → Manage deployments → edit → New version.'
+          : 'JPG or PNG · up to ' + MAX_UPLOAD_MB + ' MB · saves to Drive and updates the sheet') +
+      '</p></div>';
+  }
+
+  function wirePayment(r) {
+    var pick = $('#payPick'), input = $('#payFile'), hint = $('#payHint');
+    if (!pick || !input) return;
+
+    pick.addEventListener('click', function () { input.click(); });
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      input.value = '';
+      if (!file) return;
+
+      if (!/^image\//.test(file.type)) { setHint(hint, 'Please choose an image file.', true); return; }
+      if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+        setHint(hint, 'That image is ' + (file.size / 1048576).toFixed(1) + ' MB — the limit is ' + MAX_UPLOAD_MB + ' MB.', true);
+        return;
+      }
+      if (!SCRIPT_URL || SCRIPT_URL.indexOf('/exec') === -1) {
+        setHint(hint, 'Set SCRIPT_URL at the top of this file to your Apps Script /exec URL first.', true);
+        return;
+      }
+
+      pick.disabled = true;
+      pick.classList.add('busy');
+      pick.innerHTML = '<svg class="sp"><use href="#i-refresh"/></svg> Uploading…';
+      setHint(hint, 'Saving to Drive…', false);
+
+      readFile(file)
+        .then(function (payload) {
+          return postToScript({
+            action: 'updatePayment',
+            rowKey: r.ts,
+            phone: r.phone,
+            screenshot: payload
+          });
+        })
+        .then(function (out) {
+          if (!out || out.result !== 'ok') throw new Error((out && out.message) || 'The script rejected the upload.');
+          // Update in place so the tiles, charts and table react immediately.
+          r.payment = out.url || r.payment;
+          r.hasPayment = true;
+          r.docCount = (r.hasPhoto ? 1 : 0) + 1 + (r.hasAadhaar ? 1 : 0);
+          r.payConfirmed = true;
+          r.payStatus = 'Confirmed';
+          apply();
+          if (openRow === r) openDetail(r);
+          if (out.opaque) {
+            // The reply could not be read, so pull the real Drive link back.
+            toast('Uploaded — refreshing from the sheet…');
+            setTimeout(function () { load(true); }, 2500);
+          } else {
+            toast('Payment screenshot saved for ' + r.fullName);
+          }
+        })
+        .catch(function (err) {
+          pick.disabled = false;
+          pick.classList.remove('busy');
+          pick.innerHTML = '<svg><use href="#i-upload"/></svg> Try again';
+          setHint(hint, err.message || 'Upload failed.', true);
+        });
+    });
+  }
+
+  // text/plain keeps this a "simple" request — no CORS preflight, which an
+  // Apps Script web app cannot answer. If the browser still blocks reading the
+  // reply (typically when this page is opened from file://), repeat the post
+  // opaquely: the sheet is still written, we just re-read it afterwards.
+  function postToScript(body) {
+    var opts = {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(body)
+    };
+    return fetch(SCRIPT_URL, opts)
+      .then(function (res) { return res.json(); })
+      .catch(function () {
+        opts.mode = 'no-cors';
+        return fetch(SCRIPT_URL, opts).then(function () { return { result: 'ok', opaque: true }; });
+      });
+  }
+
+  function setHint(el, msg, isErr) {
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.toggle('err', !!isErr);
+  }
+
+  function readFile(file) {
+    return new Promise(function (resolve, reject) {
+      var fr = new FileReader();
+      fr.onload = function () {
+        resolve({
+          name: file.name,
+          type: file.type,
+          data: String(fr.result).split(',')[1]
+        });
+      };
+      fr.onerror = function () { reject(new Error('Could not read that file.')); };
+      fr.readAsDataURL(file);
+    });
   }
 
   // ══════════════════════════════════════════════════════════════
@@ -1931,6 +2133,8 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
     });
   }, { rootMargin: '0px 0px -40px 0px', threshold: 0.04 });
   $$('.rise').forEach(function (el) { io.observe(el); });
+
+  checkScript();
 
   // Keep chart labels legible when the container width changes
   var rTimer;
