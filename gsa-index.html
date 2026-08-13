@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0b2452">
-<title>Corporate Cricket Championship 2026 — Registration</title>
-<meta name="description" content="MANSHIRE 43rd Anniversary Corporate Cricket Championship 2026 · 07-08-09 September 2026 · Z3 Sports Ground, Tirupur">
+<title>GSA Cricket Premium Member — Registration</title>
+<meta name="description" content="GSA Cricket Premium Member registration form">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -88,7 +88,7 @@
 
   .hero-inner { position: relative; z-index: 2; }
 
-  /* MANSHIRE wordmark, rebuilt in CSS so it stays crisp at any size */
+  /* GSA wordmark */
   .wordmark { display: inline-block; margin-bottom: 16px; }
   .wm-top {
     display: flex; align-items: stretch;
@@ -116,8 +116,8 @@
     background: var(--navy);
     color: #fff;
     font-size: 10px; font-weight: 700;
-    letter-spacing: 5px;
-    padding: 6px 0 5px;
+    letter-spacing: 2.5px;
+    padding: 6px 10px 5px;
     border-radius: 0 0 6px 6px;
     border-top: 1px solid rgba(255,255,255,.14);
   }
@@ -697,38 +697,16 @@
 
     <div class="wordmark">
       <div class="wm-top">
-        <div class="wm-badge">M</div>
-        <div class="wm-name">MANSHIRE</div>
+        <div class="wm-badge">G</div>
+        <div class="wm-name">SA</div>
       </div>
-      <div class="wm-sub">MEN'S OWN SHOP</div>
+      <div class="wm-sub">CRICKET PREMIUM MEMBER</div>
     </div>
 
-    <div class="eyebrow">IN CONNECTION WITH 43<sup>RD</sup> ANNIVERSARY</div>
+    <div class="eyebrow">OFFICIAL MEMBERSHIP</div>
 
-    <h1>Corporate<br><span class="accent">Cricket</span></h1>
-    <div class="year">CHAMPIONSHIP 2026</div>
-
-    <div class="meta-chips">
-      <div class="chip">
-        <div class="chip-ico">📅</div>
-        <div>
-          <div class="chip-k">TOURNAMENT DATES</div>
-          <div class="chip-v">07 · 08 · 09 September 2026</div>
-        </div>
-      </div>
-      <div class="chip">
-        <div class="chip-ico">📍</div>
-        <div>
-          <div class="chip-k">VENUE</div>
-          <div class="chip-v">Z3 Sports Ground, Tirupur</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-note">
-      Official player registration · Support
-      <a href="tel:+919061303300">+91 90613 03300</a>
-    </div>
+    <h1>Premium<br><span class="accent">Member</span></h1>
+    <div class="year">REGISTRATION</div>
   </div>
 </header>
 
@@ -750,7 +728,7 @@
   <div class="card">
     <div class="notice gold">
       <span>ℹ️</span>
-      <span>The organising committee reserves the right to accept or reject any entry to the championship.</span>
+      <span>The organising committee reserves the right to accept or reject any membership entry.</span>
     </div>
 
     <div class="sec">
@@ -769,7 +747,8 @@
     <div class="row2">
       <div class="field">
         <label>Phone Number <span class="req">*</span></label>
-        <input type="tel" id="phone" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel">
+        <input type="tel" id="phone" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel" maxlength="10" pattern="[0-9]{10}">
+        <div class="hint">Enter 10 digits only. No +91 or 0 prefix.</div>
       </div>
       <div class="field">
         <label>Email <span class="opt">(optional)</span></label>
@@ -1129,7 +1108,7 @@
 
     <div class="notice gold" style="margin:16px 0 0">
       <span>ℹ️</span>
-      <span>The organising committee reserves the right to accept or reject any entry to the championship.</span>
+      <span>The organising committee reserves the right to accept or reject any membership entry.</span>
     </div>
   </div>
 
@@ -1152,9 +1131,8 @@
     </div>
 
     <p>
-      Thank you for entering the<br>
-      <b style="color:var(--navy)">MANSHIRE 43<sup>rd</sup> Anniversary Corporate Cricket Championship 2026</b><br>
-      07 · 08 · 09 September 2026 · Z3 Sports Ground, Tirupur.
+      Thank you for registering as a<br>
+      <b style="color:var(--navy)">GSA Cricket Premium Member</b>.
       <br><br>
       If you have not paid yet, the ₹5,000 fee can be settled before
       <b style="color:var(--navy)" id="payByText2">31 August 2026</b>.
@@ -1168,13 +1146,10 @@
 
 <!-- ══════════════════════ CLOSING ══════════════════════ -->
 <footer class="closing">
-  <div class="eyebrow">TIRUPUR · SEPTEMBER 2026</div>
-  <h2>Save The Dates.<br>Be Part Of The Championship.</h2>
-  <p>Three days of corporate cricket, floodlit finishes and a trophy worth chasing.</p>
-  <p>Bring your firm, back your team, and make it count.</p>
-  <div class="sig">SEE YOU AT Z3</div>
-  <img class="poster" src="WhatsApp%20Image%202026-08-12%20at%205.09.31%20PM.jpeg"
-       alt="MANSHIRE 43rd Anniversary Corporate Cricket Championship 2026 poster" loading="lazy">
+  <div class="eyebrow">GSA CRICKET</div>
+  <h2>Join As A<br>Premium Member.</h2>
+  <p>Official GSA Cricket Premium Member registration.</p>
+  <div class="sig">GSA · PREMIUM MEMBER</div>
 </footer>
 
 <!-- Toast -->
@@ -1212,11 +1187,11 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwf5trEieK4v8TtFeLy-CO
 /** Payment deadline shown on the payment + success screens. */
 var PAY_BY = '31 August 2026';
 
-/** Upload ceiling, in MB. 2 MB for everything. Mirrored in Manshire-Code.gs. */
+/** Upload ceiling, in MB. 2 MB for everything. Mirrored in Code.gs. */
 var MAX_DOC_MB   = 2;    // GST certificate, partnership deed
 var MAX_IMAGE_MB = 2;    // photo, Aadhaar, payment screenshot
 
-var STORAGE_KEY = 'manshire_reg_draft_v1';
+var STORAGE_KEY = 'gsa_premium_reg_draft_v1';
 
 /** Every upload on the form, with its own limit and label. */
 var UPLOADS = {
@@ -1596,8 +1571,8 @@ function validate(page) {
   if (page === 1) {
     if (!v('fullname')) return bad('fullname', 'Please enter your full name.');
 
-    var digits = v('phone').replace(/\D/g, '').replace(/^91(?=\d{10}$)/, '').replace(/^0(?=\d{10}$)/, '');
-    if (digits.length !== 10) return bad('phone', 'Please enter a valid 10-digit mobile number.');
+    var digits = v('phone').replace(/\D/g, '');
+    if (digits.length !== 10) return bad('phone', 'Enter a 10-digit mobile number only.');
 
     var mail = v('email');
     if (mail && !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(mail)) {
@@ -1870,6 +1845,14 @@ function applyDobToSelects(iso) {
 
   fillDobOptions();
   initUploads();
+
+  var phoneEl = document.getElementById('phone');
+  phoneEl.addEventListener('input', function () {
+    var d = phoneEl.value.replace(/\D/g, '');
+    if (d.length === 12 && d.indexOf('91') === 0) d = d.substring(2);
+    if (d.length === 11 && d.indexOf('0') === 0) d = d.substring(1);
+    phoneEl.value = d.slice(0, 10);
+  });
 
   // Keep the GST field upper-case as it is typed.
   var gstEl = document.getElementById('gstNumber');

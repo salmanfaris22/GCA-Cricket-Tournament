@@ -1,9 +1,9 @@
 /**
- * GCA + MANSHIRE registration backend (Google Apps Script)
+ * GSA Cricket Premium Member + GCA registration backend (Google Apps Script)
  *
  * Serves:
  *   index.html           — GCA Goa form
- *   manshire-index.html  — Manshire Corporate Cricket 2026 form
+ *   gsa-index.html       — GSA Cricket Premium Member form
  *   dashboard.html       — payment screenshot updates
  *
  * WHY ADDING PLAYERS WAS BROKEN
@@ -27,7 +27,7 @@ var SCRIPT_VERSION = '2026-08-13-v3';
 /** The Google Sheet every registration is written into. */
 var SPREADSHEET_ID = '16KE-3Masz0pkS_VA_AVxT20OmAxbJ3Q0HAKajTHSGNA';
 
-var EVENT_NAME  = 'MANSHIRE 43rd Anniversary Corporate Cricket Championship 2026';
+var EVENT_NAME  = 'GSA Cricket Premium Member';
 var EVENT_DATES = '07 · 08 · 09 September 2026';
 var EVENT_VENUE = 'Z3 Sports Ground, Tirupur';
 
@@ -538,8 +538,8 @@ function sendConfirmation_(d, regId) {
     '<div style="font-family:Segoe UI,Helvetica,Arial,sans-serif;background:#f4f6fa;padding:26px">' +
       '<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e3e8f0">' +
         '<div style="background:linear-gradient(135deg,#0b2452,#16346e);padding:26px 24px;text-align:center">' +
-          '<div style="color:#f5c542;font-size:12px;letter-spacing:3px;font-weight:700">MANSHIRE · 43RD ANNIVERSARY</div>' +
-          '<div style="color:#fff;font-size:23px;font-weight:800;margin-top:6px">Corporate Cricket Championship 2026</div>' +
+          '<div style="color:#f5c542;font-size:12px;letter-spacing:3px;font-weight:700">GSA CRICKET</div>' +
+          '<div style="color:#fff;font-size:23px;font-weight:800;margin-top:6px">Premium Member Registration</div>' +
         '</div>' +
         '<div style="padding:26px 24px;color:#1f2937;font-size:15px;line-height:1.65">' +
           '<p style="margin:0 0 14px">Hello <b>' + esc_(d.fullName) + '</b>,</p>' +
@@ -563,7 +563,7 @@ function sendConfirmation_(d, regId) {
 
   MailApp.sendEmail({
     to      : d.email,
-    subject : 'Registration confirmed — ' + regId + ' · Corporate Cricket Championship 2026',
+    subject : 'Registration confirmed — ' + regId + ' · GSA Cricket Premium Member',
     htmlBody: html
   });
 }
