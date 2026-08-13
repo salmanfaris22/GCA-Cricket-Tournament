@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b2452">
+<title>Corporate Cricket Championship 2026 — Registration</title>
+<meta name="description" content="MANSHIRE 43rd Anniversary Corporate Cricket Championship 2026 · 07-08-09 September 2026 · Z3 Sports Ground, Tirupur">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ─────────────────────────────────────────────────────────────
+     PREMIUM PALETTE — pulled straight off the championship poster
+     ───────────────────────────────────────────────────────────── */
+  :root {
+    --navy:      #0b2452;
+    --navy-2:    #16346e;
+    --navy-3:    #1e449180;
+    --red:       #e01b22;
+    --red-d:     #b8151b;
+    --gold:      #f5c542;
+    --gold-2:    #c99a22;
+    --gold-soft: #fff8e3;
+    --cream:     #fbf9f4;
+    --ink:       #101828;
+    --muted:     #667085;
+    --line:      #e6e9f0;
+    --ok:        #12805c;
+    --card:      #ffffff;
+    --shadow-sm: 0 1px 2px rgba(11,36,82,.06), 0 4px 12px rgba(11,36,82,.05);
+    --shadow-md: 0 2px 6px rgba(11,36,82,.07), 0 16px 40px rgba(11,36,82,.10);
+    --shadow-gold: 0 6px 22px rgba(201,154,34,.28);
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .display { font-family: 'Anton', 'Manrope', sans-serif; font-weight: 400; letter-spacing: .5px; }
+
+  /* ══════════════════════════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(120% 90% at 50% -20%, #24509f 0%, transparent 60%),
+      linear-gradient(160deg, #0a1f47 0%, #0b2452 45%, #102c62 100%);
+    padding: 30px 20px 34px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::before {
+    top: -90px; right: -70px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(245,197,66,.22), transparent 70%);
+  }
+  .hero::after {
+    bottom: -110px; left: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(224,27,34,.20), transparent 70%);
+  }
+  /* Slow gold sweep across the hero — the "premium" tell */
+  .hero .sheen {
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.10) 48%, transparent 60%);
+    transform: translateX(-100%);
+    animation: sweep 7s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes sweep { 0%,70% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+  .hero-inner { position: relative; z-index: 2; }
+
+  /* MANSHIRE wordmark, rebuilt in CSS so it stays crisp at any size */
+  .wordmark { display: inline-block; margin-bottom: 16px; }
+  .wm-top {
+    display: flex; align-items: stretch;
+    border-radius: 6px 6px 0 0; overflow: hidden;
+    box-shadow: 0 8px 26px rgba(0,0,0,.32);
+  }
+  .wm-badge {
+    background: linear-gradient(160deg, #ffd54a, #f0b429);
+    color: var(--navy);
+    font-family: 'Anton', sans-serif;
+    font-size: 30px; line-height: 1;
+    padding: 11px 16px 10px;
+    display: flex; align-items: center;
+  }
+  .wm-name {
+    background: linear-gradient(160deg, #ec2027, #c8161d);
+    color: #fff;
+    font-family: 'Anton', sans-serif;
+    font-size: 30px; line-height: 1;
+    letter-spacing: 1.5px;
+    padding: 11px 18px 10px;
+    display: flex; align-items: center;
+  }
+  .wm-sub {
+    background: var(--navy);
+    color: #fff;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 5px;
+    padding: 6px 0 5px;
+    border-radius: 0 0 6px 6px;
+    border-top: 1px solid rgba(255,255,255,.14);
+  }
+
+  .hero .eyebrow {
+    display: inline-block;
+    font-size: 10.5px; font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--gold);
+    border: 1px solid rgba(245,197,66,.45);
+    background: rgba(245,197,66,.09);
+    padding: 5px 13px;
+    border-radius: 30px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 33px;
+    line-height: 1.03;
+    color: #fff;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(180deg, #ff5a5f, var(--red));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .year {
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 5px;
+    color: rgba(255,255,255,.75);
+    margin-top: 7px;
+  }
+
+  /* Date + venue chips, mirroring the poster's gold-tipped bars */
+  .meta-chips { display: grid; gap: 9px; margin-top: 20px; }
+  .chip {
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    border: 1px solid rgba(245,197,66,.32);
+    border-radius: 12px;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .chip-ico {
+    width: 34px; height: 34px; flex: none;
+    border-radius: 9px;
+    background: linear-gradient(160deg, #ffd54a, #e0a91d);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+  }
+  .chip-k { font-size: 10px; letter-spacing: 2px; color: var(--gold); font-weight: 700; }
+  .chip-v { font-size: 14.5px; font-weight: 700; color: #fff; margin-top: 1px; }
+
+  .hero-note {
+    margin-top: 16px;
+    font-size: 12px;
+    color: rgba(255,255,255,.6);
+  }
+  .hero-note a { color: var(--gold); text-decoration: none; font-weight: 700; }
+
+  /* ══════════════════════════════════════════════════════════════
+     PROGRESS RAIL
+     ══════════════════════════════════════════════════════════════ */
+  .rail-wrap {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: saturate(160%) blur(10px);
+    -webkit-backdrop-filter: saturate(160%) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .rail-bar { height: 3px; background: #eef1f6; }
+  .rail-fill {
+    height: 100%; width: 25%;
+    background: linear-gradient(90deg, var(--gold-2), var(--gold));
+    transition: width .35s cubic-bezier(.4,0,.2,1);
+  }
+  .rail {
+    display: flex; justify-content: center;
+    gap: 4px;
+    max-width: 620px; margin: 0 auto;
+    padding: 9px 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .step {
+    display: flex; align-items: center; gap: 7px;
+    padding: 6px 11px;
+    border-radius: 30px;
+    font-size: 12px; font-weight: 700;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: all .22s;
+  }
+  .step .num {
+    width: 21px; height: 21px; flex: none;
+    border-radius: 50%;
+    background: #eaedf3; color: var(--muted);
+    font-size: 11px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step.active { color: var(--navy); background: var(--gold-soft); }
+  .step.active .num { background: var(--navy); color: var(--gold); }
+  .step.done { color: var(--ok); }
+  .step.done .num { background: var(--ok); color: #fff; }
+
+  /* ══════════════════════════════════════════════════════════════
+     LAYOUT
+     ══════════════════════════════════════════════════════════════ */
+  .main { max-width: 620px; margin: 0 auto; padding: 22px 16px 40px; }
+
+  .page { display: none; }
+  .page.active { display: block; animation: rise .32s cubic-bezier(.2,.7,.3,1); }
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  .card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px 18px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  /* Thin gold capline — reads as "premium" without shouting */
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--navy), var(--gold) 45%, var(--red));
+  }
+
+  .sec {
+    display: flex; align-items: center; gap: 9px;
+    margin-bottom: 18px;
+  }
+  .sec-num {
+    width: 26px; height: 26px; flex: none;
+    border-radius: 8px;
+    background: var(--navy); color: var(--gold);
+    font-size: 12px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sec-title {
+    font-size: 15px; font-weight: 800;
+    color: var(--navy); letter-spacing: .2px;
+  }
+  .sec-sub { font-size: 12px; color: var(--muted); font-weight: 500; margin-top: 1px; }
+
+  /* ── Fields ─────────────────────────────────────────────────── */
+  .field { margin-bottom: 15px; }
+  .field label {
+    display: block;
+    font-size: 12.5px; font-weight: 700;
+    color: #344054;
+    margin-bottom: 6px;
+  }
+  .req { color: var(--red); }
+  .opt { color: var(--muted); font-weight: 500; }
+
+  input[type=text], input[type=tel], input[type=email], select, textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: #fff;
+    border: 1.5px solid #dfe3ec;
+    border-radius: 12px;
+    padding: 12px 13px;
+    transition: border-color .18s, box-shadow .18s;
+    appearance: none; -webkit-appearance: none;
+  }
+  textarea { resize: vertical; line-height: 1.5; }
+  input::placeholder, textarea::placeholder { color: #a9b0bf; }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--gold-2);
+    box-shadow: 0 0 0 3.5px rgba(245,197,66,.22);
+  }
+  input.bad, select.bad, textarea.bad {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3.5px rgba(224,27,34,.13);
+  }
+  select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%23667085' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 13px center;
+    padding-right: 34px;
+  }
+  .hint { font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.45; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 460px) { .row2 { grid-template-columns: 1fr; gap: 0; } .row2 > .field { margin-bottom: 15px; } }
+  .dob-row { display: grid; grid-template-columns: 1fr 1.5fr 1.1fr; gap: 7px; }
+
+  /* ── Choice cards (registration type, position, hands) ───────── */
+  .choice-grid { display: grid; gap: 9px; }
+  .choice-grid.two { grid-template-columns: 1fr 1fr; }
+  .choice {
+    position: relative;
+    display: flex; align-items: center; gap: 11px;
+    border: 1.5px solid #dfe3ec;
+    border-radius: 13px;
+    padding: 13px 13px;
+    cursor: pointer;
+    background: #fff;
+    font-size: 14px; font-weight: 700; color: #344054;
+    transition: all .18s;
+    user-select: none;
+  }
+  .choice:hover { border-color: var(--gold-2); background: #fffdf7; }
+  .choice .dot {
+    width: 19px; height: 19px; flex: none;
+    border-radius: 50%;
+    border: 2px solid #cdd3e0;
+    transition: all .18s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .choice.sel {
+    border-color: var(--navy);
+    background: linear-gradient(180deg, #fffdf6, #fff8e6);
+    box-shadow: var(--shadow-gold);
+  }
+  .choice.sel .dot { border-color: var(--navy); background: var(--navy); }
+  .choice.sel .dot::after {
+    content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
+  }
+  .choice .em { font-size: 17px; }
+  .choice .txt { display: flex; flex-direction: column; gap: 2px; }
+  .choice .sub { font-size: 11.5px; font-weight: 500; color: var(--muted); }
+
+  /* ── Conditional blocks ──────────────────────────────────────── */
+  .cond { display: none; }
+  .cond.show { display: block; animation: rise .3s ease; }
+  .cond-wrap {
+    margin-top: 16px;
+    border: 1px solid #e8ebf2;
+    border-left: 3px solid var(--gold);
+    border-radius: 13px;
+    background: linear-gradient(180deg, #fcfdff, #f8fafc);
+    padding: 16px 14px 6px;
+  }
+
+  /* ── Upload zones ────────────────────────────────────────────── */
+  .drop {
+    border: 1.8px dashed #d2cdb8;
+    border-radius: 13px;
+    background: linear-gradient(180deg, #fffdf6, #fffaf0);
+    padding: 18px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .drop:hover, .drop.over {
+    border-color: var(--gold-2);
+    background: #fff6dd;
+    transform: translateY(-1px);
+  }
+  .drop.bad { border-color: var(--red); background: #fff5f5; }
+  .drop.busy {
+    pointer-events: none;
+    border-color: var(--gold-2);
+    animation: pulse 1.1s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+  .drop .uico { font-size: 24px; margin-bottom: 5px; }
+  .drop .utxt { font-size: 13.5px; font-weight: 700; color: #344054; }
+  .drop .usub { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .drop .cap {
+    display: inline-block;
+    margin-top: 7px;
+    font-size: 10.5px; font-weight: 800; letter-spacing: .6px;
+    color: var(--navy);
+    background: rgba(245,197,66,.35);
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+
+  .filechip {
+    display: none;
+    align-items: center; gap: 9px;
+    margin-top: 9px;
+    background: #f0fdf6;
+    border: 1px solid #b7e4cd;
+    border-radius: 11px;
+    padding: 9px 11px;
+  }
+  .filechip.show { display: flex; }
+  .filechip .ok { color: var(--ok); font-size: 15px; }
+  .filechip .fn {
+    flex: 1; min-width: 0;
+    font-size: 12.5px; font-weight: 700; color: #14532d;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .filechip .fs { font-size: 11px; color: #3f7a5c; font-weight: 600; }
+  .filechip .rm {
+    border: none; background: none; cursor: pointer;
+    color: #7d8896; font-size: 17px; line-height: 1; padding: 0 2px;
+  }
+  .filechip .rm:hover { color: var(--red); }
+
+  .thumb {
+    display: none;
+    width: 100%; max-height: 200px;
+    object-fit: contain;
+    margin-top: 9px;
+    border-radius: 11px;
+    border: 1px solid var(--line);
+    background: #f7f8fa;
+  }
+  .thumb.show { display: block; }
+
+  /* ── Notices ─────────────────────────────────────────────────── */
+  .notice {
+    display: flex; gap: 9px;
+    font-size: 12.5px; line-height: 1.55;
+    border-radius: 11px;
+    padding: 11px 13px;
+    margin-bottom: 16px;
+  }
+  .notice b { font-weight: 800; }
+  .notice.gold { background: var(--gold-soft); border: 1px solid #f0d891; color: #6b5313; }
+  .notice.navy { background: #f2f6ff; border: 1px solid #ccdcf7; color: #1c3a72; }
+  .notice.red  { background: #fff4f4; border: 1px solid #f6c6c6; color: #8d1c22; }
+
+  /* ── Fee banner ──────────────────────────────────────────────── */
+  .fee {
+    position: relative;
+    display: flex; align-items: center; gap: 15px;
+    background: linear-gradient(140deg, #0a1f47, #16346e 70%, #1d4590);
+    border-radius: 18px;
+    padding: 20px 18px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .fee::after {
+    content: '';
+    position: absolute; top: -50px; right: -40px;
+    width: 170px; height: 170px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,197,66,.22), transparent 68%);
+  }
+  .fee-ico {
+    width: 50px; height: 50px; flex: none;
+    border-radius: 14px;
+    background: linear-gradient(160deg, #ffd54a, #daa520);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    position: relative; z-index: 2;
+  }
+  .fee-amt {
+    font-family: 'Anton', sans-serif;
+    font-size: 32px; color: #fff; letter-spacing: 1px; line-height: 1;
+  }
+  .fee-note { font-size: 12.5px; color: rgba(255,255,255,.72); margin-top: 5px; line-height: 1.45; }
+
+  /* ── QR + bank ───────────────────────────────────────────────── */
+  .qr-wrap { text-align: center; margin-bottom: 16px; }
+  .qr-img {
+    width: 210px; max-width: 72%;
+    border-radius: 14px;
+    border: 3px solid var(--gold);
+    background: #fff;
+    padding: 7px;
+    box-shadow: var(--shadow-gold);
+  }
+  .qr-cap { font-size: 12px; color: var(--muted); margin-top: 9px; font-weight: 600; }
+
+  .bank { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13.5px; }
+  .bank tr { border-bottom: 1px solid var(--line); }
+  .bank tr:last-child { border-bottom: none; }
+  .bank .bk { padding: 10px 8px 10px 0; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .bank .bv { padding: 10px 0; color: var(--ink); font-weight: 700; text-align: right; word-break: break-word; }
+
+  .apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+  .app {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    border: 1.5px solid var(--line);
+    border-radius: 13px;
+    padding: 12px 6px;
+    text-decoration: none;
+    background: #fff;
+    transition: all .18s;
+  }
+  .app:hover { border-color: var(--gold-2); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .app-ico { width: 27px; height: 27px; }
+  .app-name { font-size: 11.5px; font-weight: 800; color: #344054; }
+  .app-hint { font-size: 11.5px; color: var(--muted); text-align: center; margin-top: 9px; }
+
+  .support {
+    margin-top: 16px;
+    background: linear-gradient(180deg, #fffdf6, #fff8e6);
+    border: 1px solid #f0d891;
+    border-radius: 13px;
+    padding: 13px 14px;
+    font-size: 13px; line-height: 1.6; color: #5c4a11;
+  }
+  .support a { color: var(--navy); font-weight: 800; text-decoration: none; }
+
+  /* ── Nav buttons ─────────────────────────────────────────────── */
+  .nav { display: flex; gap: 10px; margin-top: 4px; }
+  .btn {
+    flex: 1;
+    font-family: inherit;
+    font-size: 15px; font-weight: 800;
+    border-radius: 13px;
+    padding: 14px 16px;
+    border: none;
+    cursor: pointer;
+    transition: transform .14s, box-shadow .18s, filter .18s;
+  }
+  .btn:active { transform: scale(.985); }
+  .btn-next {
+    color: var(--navy);
+    background: linear-gradient(150deg, #ffd75c, #f0b429);
+    box-shadow: var(--shadow-gold);
+  }
+  .btn-next:hover { filter: brightness(1.05); }
+  .btn-submit {
+    color: #fff;
+    background: linear-gradient(150deg, var(--red), var(--red-d));
+    box-shadow: 0 6px 22px rgba(224,27,34,.3);
+  }
+  .btn-back {
+    flex: 0 0 40%;
+    color: var(--navy);
+    background: #fff;
+    border: 1.5px solid #dfe3ec;
+  }
+  .btn-back:hover { border-color: var(--navy); }
+
+  /* ── Success ─────────────────────────────────────────────────── */
+  .success {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 36px 22px 30px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .seal {
+    width: 76px; height: 76px; margin: 0 auto 16px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, #ffd54a, #d9a018);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    box-shadow: 0 10px 30px rgba(201,154,34,.4);
+    animation: pop .45s cubic-bezier(.2,1.4,.4,1);
+  }
+  @keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+  .success h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 27px; color: var(--navy);
+    letter-spacing: .5px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .success p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .success a { color: var(--navy); font-weight: 800; text-decoration: none; }
+
+  .ticket {
+    position: relative;
+    margin: 18px 0;
+    background: linear-gradient(140deg, #0a1f47, #16346e);
+    border-radius: 15px;
+    padding: 18px 16px;
+    color: #fff;
+  }
+  .ticket .tk { font-size: 10.5px; letter-spacing: 3px; color: var(--gold); font-weight: 800; }
+  .ticket .tv {
+    font-family: 'Anton', sans-serif;
+    font-size: 30px; letter-spacing: 3px; margin-top: 4px;
+  }
+  .ticket .tn { font-size: 11.5px; color: rgba(255,255,255,.6); margin-top: 6px; }
+
+  /* ══════════════════════════════════════════════════════════════
+     CLOSING / POSTER
+     ══════════════════════════════════════════════════════════════ */
+  .closing {
+    background: linear-gradient(170deg, #0a1f47, #0b2452 60%, #102c62);
+    padding: 44px 20px 48px;
+    text-align: center;
+  }
+  .closing .eyebrow {
+    font-size: 10.5px; letter-spacing: 4px; font-weight: 800;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .closing h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 27px; color: #fff;
+    letter-spacing: .8px; text-transform: uppercase;
+    line-height: 1.15; margin-bottom: 14px;
+  }
+  .closing p { font-size: 13.5px; color: rgba(255,255,255,.7); line-height: 1.75; max-width: 440px; margin: 0 auto 8px; }
+  .closing .sig {
+    font-family: 'Anton', sans-serif;
+    font-size: 19px; color: var(--gold);
+    letter-spacing: 2.5px; margin-top: 18px;
+  }
+  .poster {
+    display: block;
+    width: 100%; max-width: 340px;
+    margin: 22px auto 0;
+    border-radius: 14px;
+    border: 2px solid rgba(245,197,66,.4);
+    box-shadow: 0 18px 50px rgba(0,0,0,.4);
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     TOAST + OVERLAY
+     ══════════════════════════════════════════════════════════════ */
+  .toast {
+    position: fixed; left: 50%; bottom: 22px;
+    transform: translate(-50%, 130%);
+    z-index: 90;
+    display: flex; align-items: flex-start; gap: 10px;
+    width: calc(100% - 32px); max-width: 430px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 14px;
+    padding: 13px 14px;
+    box-shadow: 0 16px 44px rgba(0,0,0,.35);
+    transition: transform .32s cubic-bezier(.2,.9,.3,1);
+  }
+  .toast.show { transform: translate(-50%, 0); }
+  .toast.success { background: #0f5c3f; }
+  .toast-ico { font-size: 17px; line-height: 1.2; }
+  .toast-title { font-size: 12.5px; font-weight: 800; color: var(--gold); }
+  .toast.success .toast-title { color: #9ff0c8; }
+  .toast-msg { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,.9); margin-top: 2px; }
+  .toast-body { flex: 1; }
+  .toast-close {
+    background: none; border: none; color: rgba(255,255,255,.6);
+    font-size: 21px; line-height: 1; cursor: pointer; padding: 0 2px;
+  }
+
+  .overlay {
+    position: fixed; inset: 0; z-index: 100;
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(10,31,71,.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .overlay.show { display: flex; }
+  .overlay-box {
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px 34px;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,.3);
+  }
+  .spinner {
+    width: 40px; height: 40px; margin: 0 auto 14px;
+    border: 3.5px solid #f0e5c8;
+    border-top-color: var(--gold-2);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .overlay-box p { font-size: 13.5px; font-weight: 700; color: var(--navy); }
+  .overlay-box small { display: block; font-size: 11.5px; color: var(--muted); margin-top: 5px; font-weight: 500; }
+
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 28px; }
+    .wm-badge, .wm-name { font-size: 25px; }
+    .wm-sub { letter-spacing: 3.5px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<header class="hero">
+  <div class="sheen"></div>
+  <div class="hero-inner">
+
+    <div class="wordmark">
+      <div class="wm-top">
+        <div class="wm-badge">M</div>
+        <div class="wm-name">MANSHIRE</div>
+      </div>
+      <div class="wm-sub">MEN'S OWN SHOP</div>
+    </div>
+
+    <div class="eyebrow">IN CONNECTION WITH 43<sup>RD</sup> ANNIVERSARY</div>
+
+    <h1>Corporate<br><span class="accent">Cricket</span></h1>
+    <div class="year">CHAMPIONSHIP 2026</div>
+
+    <div class="meta-chips">
+      <div class="chip">
+        <div class="chip-ico">📅</div>
+        <div>
+          <div class="chip-k">TOURNAMENT DATES</div>
+          <div class="chip-v">07 · 08 · 09 September 2026</div>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="chip-ico">📍</div>
+        <div>
+          <div class="chip-k">VENUE</div>
+          <div class="chip-v">Z3 Sports Ground, Tirupur</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-note">
+      Official player registration · Support
+      <a href="tel:+919061303300">+91 90613 03300</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════ PROGRESS ══════════════════════ -->
+<div class="rail-wrap">
+  <div class="rail-bar"><div class="rail-fill" id="railFill"></div></div>
+  <div class="rail" id="rail">
+    <div class="step active" id="st1"><div class="num">1</div> Personal</div>
+    <div class="step" id="st2"><div class="num">2</div> Business &amp; GST</div>
+    <div class="step" id="st3"><div class="num">3</div> Cricket</div>
+    <div class="step" id="st4"><div class="num">4</div> Payment</div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ═════════ STEP 1 — PERSONAL ═════════ -->
+<section class="page active" id="pg1">
+  <div class="card">
+    <div class="notice gold">
+      <span>ℹ️</span>
+      <span>The organising committee reserves the right to accept or reject any entry to the championship.</span>
+    </div>
+
+    <div class="sec">
+      <div class="sec-num">1</div>
+      <div>
+        <div class="sec-title">Personal Details</div>
+        <div class="sec-sub">As printed on your ID card</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Full Name <span class="req">*</span></label>
+      <input type="text" id="fullname" placeholder="As per Aadhaar / ID card" autocomplete="name">
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Phone Number <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label>Email <span class="opt">(optional)</span></label>
+        <input type="email" id="email" placeholder="you@company.com" autocomplete="email">
+        <div class="hint">We send your registration ID here.</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Date of Birth <span class="req">*</span></label>
+      <div class="dob-row">
+        <select id="dob_day" onchange="syncDob()" aria-label="Day"><option value="">Day</option></select>
+        <select id="dob_month" onchange="syncDob()" aria-label="Month">
+          <option value="">Month</option>
+          <option value="01">January</option><option value="02">February</option>
+          <option value="03">March</option><option value="04">April</option>
+          <option value="05">May</option><option value="06">June</option>
+          <option value="07">July</option><option value="08">August</option>
+          <option value="09">September</option><option value="10">October</option>
+          <option value="11">November</option><option value="12">December</option>
+        </select>
+        <select id="dob_year" onchange="syncDob()" aria-label="Year"><option value="">Year</option></select>
+      </div>
+      <input type="hidden" id="dob" value="">
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Blood Group <span class="req">*</span></label>
+        <select id="bloodgroup">
+          <option value="">— Select —</option>
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>O+</option><option>O-</option>
+          <option>AB+</option><option>AB-</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Jersey Size <span class="opt">(optional)</span></label>
+        <select id="tshirt">
+          <option value="">— Select —</option>
+          <option>S</option><option>M</option><option>L</option>
+          <option>XL</option><option>XXL</option><option>3XL</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>City / Town <span class="req">*</span></label>
+      <input type="text" id="city" placeholder="e.g. Tirupur, Coimbatore, Erode">
+    </div>
+
+    <div class="field">
+      <label>Profile Photo <span class="opt">(optional)</span></label>
+      <div class="drop" data-for="photoFile">
+        <div class="uico">📷</div>
+        <div class="utxt">Tap or drop your photo here</div>
+        <div class="usub">JPG or PNG</div>
+        <div class="cap">MAX 2 MB</div>
+      </div>
+      <input type="file" id="photoFile" accept="image/*" hidden>
+      <div class="filechip" id="chip-photoFile">
+        <span class="ok">✓</span>
+        <span class="fn"></span><span class="fs"></span>
+        <button type="button" class="rm" aria-label="Remove">&times;</button>
+      </div>
+      <img class="thumb" id="thumb-photoFile" alt="Photo preview">
+    </div>
+
+    <div class="field">
+      <label>Aadhaar Card <span class="req">*</span></label>
+      <div class="drop" data-for="aadhaarFile">
+        <div class="uico">🪪</div>
+        <div class="utxt">Upload your Aadhaar card</div>
+        <div class="usub">JPG, PNG or PDF</div>
+        <div class="cap">MAX 2 MB</div>
+      </div>
+      <input type="file" id="aadhaarFile" accept="image/*,application/pdf" hidden>
+      <div class="filechip" id="chip-aadhaarFile">
+        <span class="ok">✓</span>
+        <span class="fn"></span><span class="fs"></span>
+        <button type="button" class="rm" aria-label="Remove">&times;</button>
+      </div>
+      <img class="thumb" id="thumb-aadhaarFile" alt="Aadhaar preview">
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-next" onclick="next(1)">Continue →</button>
+  </div>
+</section>
+
+<!-- ═════════ STEP 2 — BUSINESS & GST ═════════ -->
+<section class="page" id="pg2">
+  <div class="card">
+    <div class="sec">
+      <div class="sec-num">2</div>
+      <div>
+        <div class="sec-title">Business &amp; GST</div>
+        <div class="sec-sub">GST number and certificate are mandatory</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Registering as <span class="req">*</span></label>
+      <div class="choice-grid" id="grp-regtype">
+        <div class="choice" onclick="pickRegType(this,'Proprietorship')">
+          <div class="dot"></div><span class="em">🏪</span>
+          <span class="txt">
+            Proprietorship
+            <span class="sub">Single-owner firm</span>
+          </span>
+        </div>
+        <div class="choice" onclick="pickRegType(this,'Partnership')">
+          <div class="dot"></div><span class="em">🤝</span>
+          <span class="txt">
+            Partnership
+            <span class="sub">Partnership deed required</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shared business block, shown once a type is chosen -->
+    <div class="cond" id="cond-business">
+      <div class="cond-wrap">
+
+        <div class="field">
+          <label>Firm Name <span class="req">*</span></label>
+          <input type="text" id="firmName" placeholder="Registered name of the firm">
+        </div>
+
+        <div class="field">
+          <label>Brand Name <span class="opt">(optional)</span></label>
+          <input type="text" id="brandName" placeholder="Trading / brand name">
+        </div>
+
+        <div class="field">
+          <label>Business Address <span class="req">*</span></label>
+          <textarea id="address" rows="3" placeholder="Door No., Street, Area, City, State, PIN Code"></textarea>
+        </div>
+
+        <div class="field">
+          <label>GST Number <span class="req">*</span></label>
+          <input type="text" id="gstNumber" placeholder="33ABCDE1234F1Z5" maxlength="15"
+                 style="text-transform:uppercase;letter-spacing:1px;font-weight:700">
+          <div class="hint">15-character GSTIN. It is checked before the form is accepted.</div>
+        </div>
+
+        <div class="field">
+          <label>GST Certificate <span class="req">*</span></label>
+          <div class="drop" data-for="gstFile">
+            <div class="uico">📄</div>
+            <div class="utxt">Upload your GST registration certificate</div>
+            <div class="usub">PDF, JPG or PNG</div>
+            <div class="cap">MAX 2 MB — MANDATORY</div>
+          </div>
+          <input type="file" id="gstFile" accept="image/*,application/pdf" hidden>
+          <div class="filechip" id="chip-gstFile">
+            <span class="ok">✓</span>
+            <span class="fn"></span><span class="fs"></span>
+            <button type="button" class="rm" aria-label="Remove">&times;</button>
+          </div>
+          <img class="thumb" id="thumb-gstFile" alt="GST certificate preview">
+          <div class="hint">A photo over 2 MB is compressed automatically. A PDF over 2 MB has to be reduced before you upload it.</div>
+        </div>
+
+        <!-- Partnership-only block -->
+        <div class="cond" id="cond-partnership">
+          <div class="field">
+            <label>Names of Partners <span class="req">*</span></label>
+            <textarea id="partnerNames" rows="2" placeholder="One name per line, or comma separated"></textarea>
+          </div>
+
+          <div class="field">
+            <label>Partnership Deed <span class="req">*</span></label>
+            <div class="drop" data-for="deedFile">
+              <div class="uico">📑</div>
+              <div class="utxt">Upload the partnership deed</div>
+              <div class="usub">PDF, JPG or PNG</div>
+              <div class="cap">MAX 2 MB — MANDATORY</div>
+            </div>
+            <input type="file" id="deedFile" accept="image/*,application/pdf" hidden>
+            <div class="filechip" id="chip-deedFile">
+              <span class="ok">✓</span>
+              <span class="fn"></span><span class="fs"></span>
+              <button type="button" class="rm" aria-label="Remove">&times;</button>
+            </div>
+            <img class="thumb" id="thumb-deedFile" alt="Deed preview">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-back" onclick="goTo(1)">← Back</button>
+    <button class="btn btn-next" onclick="next(2)">Continue →</button>
+  </div>
+</section>
+
+<!-- ═════════ STEP 3 — CRICKET ═════════ -->
+<section class="page" id="pg3">
+  <div class="card">
+    <div class="sec">
+      <div class="sec-num">3</div>
+      <div>
+        <div class="sec-title">Cricket Profile</div>
+        <div class="sec-sub">Used for team balancing and the squad sheet</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Playing Position <span class="req">*</span></label>
+      <div class="choice-grid two" id="grp-position">
+        <div class="choice" onclick="pick('grp-position',this,'Batsman')">
+          <div class="dot"></div><span class="em">🏏</span> Batsman
+        </div>
+        <div class="choice" onclick="pick('grp-position',this,'Bowler')">
+          <div class="dot"></div><span class="em">🎯</span> Bowler
+        </div>
+        <div class="choice" onclick="pick('grp-position',this,'Wicket Keeper')">
+          <div class="dot"></div><span class="em">🧤</span> Keeper
+        </div>
+        <div class="choice" onclick="pick('grp-position',this,'All-Rounder')">
+          <div class="dot"></div><span class="em">⭐</span> All-Rounder
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Batting Hand <span class="req">*</span></label>
+      <div class="choice-grid two" id="grp-batting">
+        <div class="choice" onclick="pick('grp-batting',this,'Right Handed')">
+          <div class="dot"></div> Right Handed
+        </div>
+        <div class="choice" onclick="pick('grp-batting',this,'Left Handed')">
+          <div class="dot"></div> Left Handed
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Bowling Hand <span class="req">*</span></label>
+      <div class="choice-grid two" id="grp-bowling">
+        <div class="choice" onclick="pick('grp-bowling',this,'Right Handed')">
+          <div class="dot"></div> Right Handed
+        </div>
+        <div class="choice" onclick="pick('grp-bowling',this,'Left Handed')">
+          <div class="dot"></div> Left Handed
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-back" onclick="goTo(2)">← Back</button>
+    <button class="btn btn-next" onclick="next(3)">Continue →</button>
+  </div>
+</section>
+
+<!-- ═════════ STEP 4 — PAYMENT ═════════ -->
+<section class="page" id="pg4">
+  <div class="fee">
+    <div class="fee-ico">💰</div>
+    <div style="position:relative;z-index:2">
+      <div class="fee-amt">₹5,000</div>
+      <div class="fee-note">Registration fee per player · payable any time before the deadline</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec">
+      <div class="sec-num">4</div>
+      <div>
+        <div class="sec-title">Payment</div>
+        <div class="sec-sub">UPI, bank transfer or QR</div>
+      </div>
+    </div>
+
+    <div class="notice navy">
+      <span>ℹ️</span>
+      <span>Payment is <b>not required right now</b> — you can submit this form first and pay before
+        <b id="payByText">31 August 2026</b>. Once paid, upload the screenshot below or send it to the support number.</span>
+    </div>
+
+    <div class="qr-wrap">
+      <img src="qr.png" alt="Scan to pay ₹5,000 via UPI" class="qr-img">
+      <div class="qr-cap">Scan with any UPI app to pay ₹5,000</div>
+    </div>
+
+    <table class="bank">
+      <tr><td class="bk">Bank</td><td class="bv">City Union Bank, Tripunithura</td></tr>
+      <tr><td class="bk">Account Name</td><td class="bv">Garments Cricket Association Trust</td></tr>
+      <tr><td class="bk">Account No</td><td class="bv">500101011038466</td></tr>
+      <tr><td class="bk">IFSC Code</td><td class="bv">CIUB0000379</td></tr>
+      <tr><td class="bk">UPI ID</td><td class="bv">Eze0040230@CUB</td></tr>
+    </table>
+
+    <div class="apps">
+      <a class="app" href="tez://upi/pay?pa=Eze0040230@CUB&pn=Garments%20Cricket%20Association&am=5000&cu=INR">
+        <svg class="app-ico" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span class="app-name">Google&nbsp;Pay</span>
+      </a>
+
+      <a class="app" href="phonepe://pay?pa=Eze0040230@CUB&pn=Garments%20Cricket%20Association&am=5000&cu=INR">
+        <svg class="app-ico" viewBox="0 0 48 48" aria-hidden="true">
+          <rect width="48" height="48" rx="11" fill="#5F259F"/>
+          <text x="24" y="33" text-anchor="middle" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Pe</text>
+        </svg>
+        <span class="app-name">PhonePe</span>
+      </a>
+
+      <a class="app" href="paytmmp://pay?pa=Eze0040230@CUB&pn=Garments%20Cricket%20Association&am=5000&cu=INR">
+        <svg class="app-ico" viewBox="0 0 48 48" aria-hidden="true">
+          <rect width="48" height="48" rx="11" fill="#00BAF2"/>
+          <text x="24" y="34" text-anchor="middle" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="27" font-weight="700">P</text>
+        </svg>
+        <span class="app-name"><b style="color:#002970">Pay</b><b style="color:#00BAF2">tm</b></span>
+      </a>
+    </div>
+    <div class="app-hint">Tap an app to pay ₹5,000 · amount and UPI ID fill in automatically</div>
+
+    <div class="support">
+      <b>📞 Payment Support</b><br>
+      Junied DX &nbsp;·&nbsp; <a href="tel:+919061303300">+91 90613 03300</a><br>
+      <span style="font-size:12px">Send the screenshot on WhatsApp if you cannot upload it here.</span>
+    </div>
+
+    <div class="field" style="margin-top:18px">
+      <label>UTR / Reference Number <span class="opt">(optional)</span></label>
+      <input type="text" id="utr" placeholder="Transaction reference, if you have already paid">
+    </div>
+
+    <div class="field">
+      <label>Payment Screenshot <span class="opt">(optional)</span></label>
+      <div class="drop" data-for="ssFile">
+        <div class="uico">🖼️</div>
+        <div class="utxt">Upload the payment screenshot</div>
+        <div class="usub">Only if you have already paid</div>
+        <div class="cap">MAX 2 MB</div>
+      </div>
+      <input type="file" id="ssFile" accept="image/*" hidden>
+      <div class="filechip" id="chip-ssFile">
+        <span class="ok">✓</span>
+        <span class="fn"></span><span class="fs"></span>
+        <button type="button" class="rm" aria-label="Remove">&times;</button>
+      </div>
+      <img class="thumb" id="thumb-ssFile" alt="Screenshot preview">
+    </div>
+
+    <div class="notice gold" style="margin:16px 0 0">
+      <span>ℹ️</span>
+      <span>The organising committee reserves the right to accept or reject any entry to the championship.</span>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-back" onclick="goTo(3)">← Back</button>
+    <button class="btn btn-submit" onclick="submitForm()">Submit Registration</button>
+  </div>
+</section>
+
+<!-- ═════════ STEP 5 — SUCCESS ═════════ -->
+<section class="page" id="pg5">
+  <div class="success">
+    <div class="seal">🏆</div>
+    <h2>You're Registered!</h2>
+
+    <div class="ticket" id="ticket" style="display:none">
+      <div class="tk">YOUR REGISTRATION ID</div>
+      <div class="tv" id="regIdOut">—</div>
+      <div class="tn">Keep this ID — quote it for any payment or squad query</div>
+    </div>
+
+    <p>
+      Thank you for entering the<br>
+      <b style="color:var(--navy)">MANSHIRE 43<sup>rd</sup> Anniversary Corporate Cricket Championship 2026</b><br>
+      07 · 08 · 09 September 2026 · Z3 Sports Ground, Tirupur.
+      <br><br>
+      If you have not paid yet, the ₹5,000 fee can be settled before
+      <b style="color:var(--navy)" id="payByText2">31 August 2026</b>.
+      After paying, send the payment screenshot to
+      <a href="tel:+919061303300">+91 90613 03300</a> (Junied DX).
+    </p>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════════════ CLOSING ══════════════════════ -->
+<footer class="closing">
+  <div class="eyebrow">TIRUPUR · SEPTEMBER 2026</div>
+  <h2>Save The Dates.<br>Be Part Of The Championship.</h2>
+  <p>Three days of corporate cricket, floodlit finishes and a trophy worth chasing.</p>
+  <p>Bring your firm, back your team, and make it count.</p>
+  <div class="sig">SEE YOU AT Z3</div>
+  <img class="poster" src="WhatsApp%20Image%202026-08-12%20at%205.09.31%20PM.jpeg"
+       alt="MANSHIRE 43rd Anniversary Corporate Cricket Championship 2026 poster" loading="lazy">
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-ico" id="toastIco">⚠️</div>
+  <div class="toast-body">
+    <div class="toast-title" id="toastTitle">Required</div>
+    <div class="toast-msg" id="toastMsg"></div>
+  </div>
+  <button class="toast-close" onclick="hideToast()" aria-label="Close">&times;</button>
+</div>
+
+<!-- Loading overlay -->
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <div class="spinner"></div>
+    <p>Submitting your registration…</p>
+    <small>Uploading documents — please don't close this page</small>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   CONFIG
+   ════════════════════════════════════════════════════════════════ */
+
+/**
+ * Apps Script Web App URL — the /exec URL of the deployment that runs
+ * Manshire-Code.gs. To change it: Deploy → Manage deployments → copy the
+ * Web app URL. Re-deploying the SAME deployment keeps this URL working.
+ */
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwf5trEieK4v8TtFeLy-COTuFxe6IdGrStpDuyVcGJfwbVqVlNNQBx3U5PkztCn8j4G/exec';
+
+/** Payment deadline shown on the payment + success screens. */
+var PAY_BY = '31 August 2026';
+
+/** Upload ceiling, in MB. 2 MB for everything. Mirrored in Manshire-Code.gs. */
+var MAX_DOC_MB   = 2;    // GST certificate, partnership deed
+var MAX_IMAGE_MB = 2;    // photo, Aadhaar, payment screenshot
+
+var STORAGE_KEY = 'manshire_reg_draft_v1';
+
+/** Every upload on the form, with its own limit and label. */
+var UPLOADS = {
+  photoFile:   { max: MAX_IMAGE_MB, label: 'Profile photo' },
+  aadhaarFile: { max: MAX_IMAGE_MB, label: 'Aadhaar card' },
+  gstFile:     { max: MAX_DOC_MB,   label: 'GST certificate' },
+  deedFile:    { max: MAX_DOC_MB,   label: 'Partnership deed' },
+  ssFile:      { max: MAX_IMAGE_MB, label: 'Payment screenshot' }
+};
+
+
+/* ════════════════════════════════════════════════════════════════
+   STATE
+   ════════════════════════════════════════════════════════════════ */
+
+var vals = {};          // choice-group values, keyed by group id
+var currentPage = 1;
+var toastTimer;
+var submitting = false;
+
+
+/* ════════════════════════════════════════════════════════════════
+   TOAST
+   ════════════════════════════════════════════════════════════════ */
+
+function notify(msg, type) {
+  var t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  document.getElementById('toastIco').textContent = type === 'success' ? '✅' : '⚠️';
+  document.getElementById('toastTitle').textContent = type === 'success' ? 'Done' : 'Check this';
+  t.className = 'toast show' + (type === 'success' ? ' success' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, type === 'success' ? 4000 : 5200);
+  return false;
+}
+function hideToast() { document.getElementById('toast').classList.remove('show'); }
+
+/** Flags a field red, scrolls to it, and shows the message. */
+function bad(id, msg) {
+  var el = document.getElementById(id);
+  if (el) {
+    el.classList.add('bad');
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    setTimeout(function () { el.classList.remove('bad'); }, 2600);
+  }
+  return notify(msg);
+}
+
+/** Same, but for an upload zone rather than an input. */
+function badDrop(inputId, msg) {
+  var zone = document.querySelector('.drop[data-for="' + inputId + '"]');
+  if (zone) {
+    zone.classList.add('bad');
+    zone.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    setTimeout(function () { zone.classList.remove('bad'); }, 2600);
+  }
+  return notify(msg);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   CHOICE GROUPS
+   ════════════════════════════════════════════════════════════════ */
+
+function pick(groupId, el, value) {
+  var opts = document.querySelectorAll('#' + groupId + ' .choice');
+  for (var i = 0; i < opts.length; i++) opts[i].classList.remove('sel');
+  el.classList.add('sel');
+  vals[groupId] = value;
+  saveState();
+}
+
+function pickRegType(el, value) {
+  pick('grp-regtype', el, value);
+  applyRegType(value);
+  saveState();
+}
+
+/** Opens the business block, and the partnership extras when relevant. */
+function applyRegType(value) {
+  document.getElementById('cond-business')
+    .classList.toggle('show', value === 'Proprietorship' || value === 'Partnership');
+  document.getElementById('cond-partnership')
+    .classList.toggle('show', value === 'Partnership');
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   UPLOADS — size check, preview, drag & drop
+   ════════════════════════════════════════════════════════════════ */
+
+/**
+ * The file actually queued for each upload, keyed by input id:
+ *   { blob, name, type, size, note }
+ *
+ * This is NOT always the file the registrant picked — an oversized photo is
+ * replaced here by its compressed version, so nothing over 2 MB is ever sent.
+ */
+var PICKED = {};
+
+function fmtSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes / 1024).toFixed(0) + ' KB';
+  return (bytes / 1048576).toFixed(2) + ' MB';
+}
+
+/**
+ * Shrinks an image until it fits under maxBytes, by capping the long edge
+ * and then stepping JPEG quality down. Runs entirely in the browser — the
+ * original never leaves the phone.
+ */
+function compressImage(file, maxBytes) {
+  return new Promise(function (resolve, reject) {
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+
+    img.onerror = function () { URL.revokeObjectURL(url); reject(); };
+    img.onload = function () {
+      var w = img.naturalWidth || img.width;
+      var h = img.naturalHeight || img.height;
+      if (!w || !h) { URL.revokeObjectURL(url); return reject(); }
+
+      // A 2000px long edge keeps an Aadhaar card or GST page readable.
+      var MAX_EDGE = 2000;
+      var longest = Math.max(w, h);
+      if (longest > MAX_EDGE) {
+        var s = MAX_EDGE / longest;
+        w = Math.round(w * s);
+        h = Math.round(h * s);
+      }
+
+      var canvas = document.createElement('canvas');
+
+      function attempt(quality, width, height) {
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';           // flatten PNG transparency
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(function (blob) {
+          if (!blob) { URL.revokeObjectURL(url); return reject(); }
+
+          if (blob.size <= maxBytes) { URL.revokeObjectURL(url); return resolve(blob); }
+
+          // Out of room to shrink — hand back the best we managed.
+          if (quality <= 0.4 && width <= 700) { URL.revokeObjectURL(url); return resolve(blob); }
+
+          var nextQ = quality > 0.4 ? quality - 0.12 : quality;
+          var scale = quality > 0.4 ? 0.92 : 0.8;
+          attempt(nextQ, Math.round(width * scale), Math.round(height * scale));
+        }, 'image/jpeg', quality);
+      }
+
+      attempt(0.85, w, h);
+    };
+
+    img.src = url;
+  });
+}
+
+/** Swaps any extension for .jpg, since compression always outputs JPEG. */
+function toJpgName(name) {
+  return String(name || 'upload').replace(/\.[^.]+$/, '') + '.jpg';
+}
+
+/** Greys the zone out while an image is being compressed. */
+function setDropBusy(inputId, on) {
+  var zone = document.querySelector('.drop[data-for="' + inputId + '"]');
+  if (!zone) return;
+  var txt = zone.querySelector('.utxt');
+  if (on) {
+    zone.setAttribute('data-orig', txt.textContent);
+    txt.textContent = 'Compressing image…';
+    zone.classList.add('busy');
+  } else {
+    var orig = zone.getAttribute('data-orig');
+    if (orig) txt.textContent = orig;
+    zone.classList.remove('busy');
+  }
+}
+
+/**
+ * Takes one picked file. Anything at or under the limit is queued as-is;
+ * an oversized image is compressed first; an oversized PDF is refused,
+ * because a PDF cannot be re-encoded in the browser.
+ */
+function handleFile(inputId) {
+  var input = document.getElementById(inputId);
+  var cfg = UPLOADS[inputId];
+  var f = input.files && input.files[0];
+
+  if (!f) { clearFile(inputId); return; }
+
+  var limit = cfg.max * 1024 * 1024;
+
+  if (f.size <= limit) {
+    acceptFile(inputId, f, f.name, f.type, '');
+    return;
+  }
+
+  if (!/^image\//.test(f.type)) {
+    clearFile(inputId);
+    badDrop(inputId,
+      cfg.label + ' is ' + fmtSize(f.size) + '. The limit is ' + cfg.max +
+      ' MB — please compress the PDF, or take a photo of the page instead.');
+    return;
+  }
+
+  setDropBusy(inputId, true);
+  compressImage(f, limit).then(function (blob) {
+    setDropBusy(inputId, false);
+    if (blob.size > limit) {
+      clearFile(inputId);
+      badDrop(inputId,
+        cfg.label + ' is still ' + fmtSize(blob.size) + ' after compression. ' +
+        'Please pick a smaller image.');
+      return;
+    }
+    acceptFile(inputId, blob, toJpgName(f.name), 'image/jpeg',
+      'compressed from ' + fmtSize(f.size));
+  }).catch(function () {
+    setDropBusy(inputId, false);
+    clearFile(inputId);
+    badDrop(inputId,
+      cfg.label + ' is ' + fmtSize(f.size) + ' and could not be compressed. ' +
+      'The limit is ' + cfg.max + ' MB — please pick a smaller image.');
+  });
+}
+
+/** Queues a file and paints the chip + preview. */
+function acceptFile(inputId, blob, name, type, note) {
+  PICKED[inputId] = { blob: blob, name: name, type: type, size: blob.size, note: note };
+
+  var chip = document.getElementById('chip-' + inputId);
+  var thumb = document.getElementById('thumb-' + inputId);
+
+  chip.querySelector('.fn').textContent = name;
+  chip.querySelector('.fs').textContent = fmtSize(blob.size) + (note ? ' · ' + note : '');
+  chip.classList.add('show');
+
+  if (/^image\//.test(type)) {
+    thumb.src = URL.createObjectURL(blob);
+    thumb.classList.add('show');
+  } else {
+    thumb.classList.remove('show');
+    thumb.removeAttribute('src');
+  }
+}
+
+function clearFile(inputId) {
+  delete PICKED[inputId];
+
+  var input = document.getElementById(inputId);
+  var chip = document.getElementById('chip-' + inputId);
+  var thumb = document.getElementById('thumb-' + inputId);
+
+  input.value = '';
+  chip.classList.remove('show');
+  chip.querySelector('.fn').textContent = '';
+  chip.querySelector('.fs').textContent = '';
+  thumb.classList.remove('show');
+  thumb.removeAttribute('src');
+}
+
+function hasFile(inputId) {
+  return !!PICKED[inputId];
+}
+
+/** Reads the queued file as base64 for the JSON payload. */
+function fileToObj(inputId) {
+  return new Promise(function (resolve) {
+    var picked = PICKED[inputId];
+    if (!picked) return resolve(null);
+
+    var r = new FileReader();
+    r.onload = function () {
+      resolve({
+        name: picked.name,
+        type: picked.type || 'application/octet-stream',
+        data: String(r.result).split(',')[1]
+      });
+    };
+    r.onerror = function () { resolve(null); };
+    r.readAsDataURL(picked.blob);
+  });
+}
+
+/** Wires click + drag & drop on every .drop zone. */
+function initUploads() {
+  var zones = document.querySelectorAll('.drop');
+  for (var i = 0; i < zones.length; i++) {
+    (function (zone) {
+      var id = zone.getAttribute('data-for');
+      var input = document.getElementById(id);
+
+      zone.addEventListener('click', function () { input.click(); });
+      input.addEventListener('change', function () { handleFile(id); });
+
+      ['dragenter', 'dragover'].forEach(function (ev) {
+        zone.addEventListener(ev, function (e) {
+          e.preventDefault(); zone.classList.add('over');
+        });
+      });
+      ['dragleave', 'drop'].forEach(function (ev) {
+        zone.addEventListener(ev, function (e) {
+          e.preventDefault(); zone.classList.remove('over');
+        });
+      });
+      zone.addEventListener('drop', function (e) {
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+          input.files = e.dataTransfer.files;
+          handleFile(id);
+        }
+      });
+    })(zones[i]);
+  }
+
+  var chips = document.querySelectorAll('.filechip .rm');
+  for (var j = 0; j < chips.length; j++) {
+    (function (btn) {
+      btn.addEventListener('click', function () {
+        clearFile(btn.parentNode.id.replace('chip-', ''));
+      });
+    })(chips[j]);
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   NAVIGATION
+   ════════════════════════════════════════════════════════════════ */
+
+function goTo(n) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  document.getElementById('pg' + n).classList.add('active');
+
+  for (var s = 1; s <= 4; s++) {
+    var el = document.getElementById('st' + s);
+    if (!el) continue;
+    el.classList.remove('active', 'done');
+    if (s < n) el.classList.add('done');
+    if (s === n) el.classList.add('active');
+  }
+  document.getElementById('railFill').style.width = Math.min(n, 4) * 25 + '%';
+
+  if (n <= 4) { currentPage = n; saveState(); }
+
+  var chip = document.getElementById('st' + n);
+  if (chip && chip.scrollIntoView) chip.scrollIntoView({ inline: 'center', block: 'nearest' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function next(from) {
+  if (!validate(from)) return;
+  goTo(from + 1);
+}
+
+function v(id) {
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   VALIDATION
+   ════════════════════════════════════════════════════════════════ */
+
+/** Standard 15-character GSTIN shape: 33ABCDE1234F1Z5 */
+function isGstin(s) {
+  return /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]Z[0-9A-Z]$/.test(s);
+}
+
+function validate(page) {
+  if (page === 1) {
+    if (!v('fullname')) return bad('fullname', 'Please enter your full name.');
+
+    var digits = v('phone').replace(/\D/g, '').replace(/^91(?=\d{10}$)/, '').replace(/^0(?=\d{10}$)/, '');
+    if (digits.length !== 10) return bad('phone', 'Please enter a valid 10-digit mobile number.');
+
+    var mail = v('email');
+    if (mail && !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(mail)) {
+      return bad('email', 'That email address does not look right.');
+    }
+    if (!v('dob'))        return bad('dob_day', 'Please select your date of birth.');
+    if (!v('bloodgroup')) return bad('bloodgroup', 'Please select your blood group.');
+    if (!v('city'))       return bad('city', 'Please enter your city or town.');
+    if (!hasFile('aadhaarFile')) return badDrop('aadhaarFile', 'Please upload your Aadhaar card.');
+  }
+
+  if (page === 2) {
+    var rt = vals['grp-regtype'];
+    if (!rt) return notify('Please choose Proprietorship or Partnership.');
+
+    if (!v('firmName')) return bad('firmName', 'Please enter the firm name.');
+    if (!v('address'))  return bad('address', 'Please enter the business address.');
+
+    var gst = v('gstNumber').toUpperCase().replace(/\s+/g, '');
+    if (!gst) return bad('gstNumber', 'The GST number is required.');
+    if (!isGstin(gst)) {
+      return bad('gstNumber', 'That GST number is not valid. A GSTIN is 15 characters, e.g. 33ABCDE1234F1Z5.');
+    }
+    if (!hasFile('gstFile')) {
+      return badDrop('gstFile', 'The GST certificate upload is required (max 2 MB).');
+    }
+
+    if (rt === 'Partnership') {
+      if (!v('partnerNames')) return bad('partnerNames', 'Please list the names of the partners.');
+      if (!hasFile('deedFile')) {
+        return badDrop('deedFile', 'A Partnership registration requires the partnership deed (max 2 MB).');
+      }
+    }
+  }
+
+  if (page === 3) {
+    if (!vals['grp-position']) return notify('Please select your playing position.');
+    if (!vals['grp-batting'])  return notify('Please select your batting hand.');
+    if (!vals['grp-bowling'])  return notify('Please select your bowling hand.');
+  }
+
+  return true;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   SUBMIT
+   ════════════════════════════════════════════════════════════════ */
+
+function submitForm() {
+  if (submitting) return;
+  // Re-run every earlier step, in case someone jumped back and cleared a field.
+  if (!validate(1) || !validate(2) || !validate(3)) return;
+
+  submitting = true;
+  document.getElementById('overlay').classList.add('show');
+
+  Promise.all([
+    fileToObj('photoFile'),
+    fileToObj('aadhaarFile'),
+    fileToObj('gstFile'),
+    fileToObj('deedFile'),
+    fileToObj('ssFile')
+  ]).then(function (files) {
+    var rt = vals['grp-regtype'] || '';
+
+    var payload = {
+      timestamp:    new Date().toISOString(),
+      fullName:     v('fullname'),
+      phone:        v('phone'),
+      email:        v('email'),
+      dob:          v('dob'),
+      bloodGroup:   v('bloodgroup'),
+      tshirt:       v('tshirt'),
+      city:         v('city'),
+      address:      v('address'),
+      regType:      rt,
+      firmName:     v('firmName'),
+      brandName:    v('brandName'),
+      gstNumber:    v('gstNumber').toUpperCase().replace(/\s+/g, ''),
+      partnerNames: rt === 'Partnership' ? v('partnerNames') : '',
+      position:     vals['grp-position'] || '',
+      batting:      vals['grp-batting']  || '',
+      bowling:      vals['grp-bowling']  || '',
+      utr:          v('utr'),
+      photo:        files[0],   // { name, type, data } | null
+      aadhaar:      files[1],
+      gstCert:      files[2],
+      deed:         files[3],
+      screenshot:   files[4]
+    };
+
+    if (SCRIPT_URL === 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE') {
+      // Demo mode — the endpoint is not configured yet.
+      setTimeout(function () { done('MCC26-DEMO'); }, 1200);
+      return;
+    }
+
+    send(payload);
+  });
+}
+
+/**
+ * Posts the registration.
+ *
+ * text/plain keeps this a "simple request", so the browser skips the CORS
+ * pre-flight that Apps Script cannot answer. The normal (readable) fetch is
+ * tried first so real server errors — an oversized document, a duplicate
+ * phone number — can be shown to the registrant. If the browser still blocks
+ * reading the response, we retry as no-cors so the entry is not lost; the
+ * server's duplicate check means that retry can never create a second row.
+ */
+function send(payload) {
+  var body = JSON.stringify(payload);
+  var opts = {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: body,
+    redirect: 'follow'
+  };
+
+  fetch(SCRIPT_URL, opts)
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      if (res && res.result === 'ok') return done(res.regId);
+      if (res && res.result === 'duplicate') return fail(res.message);
+      fail((res && res.message) || 'The server rejected the registration.');
+    })
+    .catch(function () {
+      // Response unreadable (CORS) or network hiccup — fire-and-forget retry.
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: body
+      })
+      .then(function () { done(''); })
+      .catch(function () {
+        fail('Network error. Check your connection and tap Submit again.');
+      });
+    });
+}
+
+function fail(msg) {
+  submitting = false;
+  document.getElementById('overlay').classList.remove('show');
+  notify(msg);
+}
+
+function done(regId) {
+  submitting = false;
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  document.getElementById('overlay').classList.remove('show');
+
+  if (regId) {
+    document.getElementById('regIdOut').textContent = regId;
+    document.getElementById('ticket').style.display = 'block';
+  }
+  goTo(5);
+  document.querySelector('.rail-wrap').style.display = 'none';
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   DRAFT AUTO-SAVE — survives a trip to a UPI app
+   ════════════════════════════════════════════════════════════════ */
+
+function saveState() {
+  try {
+    var data = { page: currentPage, vals: vals, fields: {} };
+    var els = document.querySelectorAll('.main input, .main select, .main textarea');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (!el.id || el.type === 'file') continue;
+      data.fields[el.id] = el.value;
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) { /* private mode / full storage */ }
+}
+
+function loadState() {
+  var data;
+  try { data = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); }
+  catch (e) { data = null; }
+  if (!data) return;
+
+  if (data.fields) {
+    Object.keys(data.fields).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && el.type !== 'file') el.value = data.fields[id];
+    });
+  }
+
+  if (data.vals) {
+    vals = data.vals;
+    Object.keys(vals).forEach(function (groupId) {
+      var val = vals[groupId];
+      var opts = document.querySelectorAll('#' + groupId + ' .choice');
+      for (var i = 0; i < opts.length; i++) {
+        var oc = opts[i].getAttribute('onclick') || '';
+        if (oc.indexOf("'" + val + "'") !== -1) opts[i].classList.add('sel');
+      }
+    });
+    if (vals['grp-regtype']) applyRegType(vals['grp-regtype']);
+  }
+
+  var p = (data.page >= 1 && data.page <= 4) ? data.page : 1;
+  goTo(p);
+
+  // Files can never be restored by a browser — say so instead of failing later.
+  if (p >= 2) {
+    setTimeout(function () {
+      notify('Your details were restored. Please pick your documents again — browsers cannot save uploads.');
+    }, 600);
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   DATE OF BIRTH
+   ════════════════════════════════════════════════════════════════ */
+
+function fillDobOptions() {
+  var daySel = document.getElementById('dob_day');
+  var yearSel = document.getElementById('dob_year');
+  var thisYear = new Date().getFullYear();
+  var out = '';
+  for (var d = 1; d <= 31; d++) {
+    var dv = d < 10 ? '0' + d : String(d);
+    out += '<option value="' + dv + '">' + d + '</option>';
+  }
+  daySel.innerHTML += out;
+
+  out = '';
+  for (var y = thisYear - 12; y >= thisYear - 80; y--) {
+    out += '<option value="' + y + '">' + y + '</option>';
+  }
+  yearSel.innerHTML += out;
+}
+
+function syncDob() {
+  var day = document.getElementById('dob_day').value;
+  var month = document.getElementById('dob_month').value;
+  var year = document.getElementById('dob_year').value;
+  document.getElementById('dob').value = (day && month && year) ? (year + '-' + month + '-' + day) : '';
+  saveState();
+}
+
+function applyDobToSelects(iso) {
+  if (!iso) return;
+  var parts = iso.split('-');
+  if (parts.length !== 3) return;
+  document.getElementById('dob_year').value = parts[0];
+  document.getElementById('dob_month').value = parts[1];
+  document.getElementById('dob_day').value = parts[2];
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════════════ */
+
+(function init() {
+  document.getElementById('payByText').textContent = PAY_BY;
+  document.getElementById('payByText2').textContent = PAY_BY;
+
+  fillDobOptions();
+  initUploads();
+
+  // Keep the GST field upper-case as it is typed.
+  var gstEl = document.getElementById('gstNumber');
+  gstEl.addEventListener('input', function () {
+    var pos = gstEl.selectionStart;
+    gstEl.value = gstEl.value.toUpperCase().replace(/[^0-9A-Z]/g, '');
+    gstEl.setSelectionRange(pos, pos);
+  });
+
+  var els = document.querySelectorAll('.main input, .main select, .main textarea');
+  for (var i = 0; i < els.length; i++) {
+    if (els[i].type === 'file' || els[i].type === 'hidden') continue;
+    els[i].addEventListener('input', saveState);
+    els[i].addEventListener('change', saveState);
+  }
+
+  loadState();
+  applyDobToSelects(document.getElementById('dob').value);
+})();
+</script>
+</body>
+</html>
