@@ -1203,8 +1203,9 @@
 
 /**
  * Apps Script Web App URL — the /exec URL of the deployment that runs
- * Manshire-Code.gs. To change it: Deploy → Manage deployments → copy the
- * Web app URL. Re-deploying the SAME deployment keeps this URL working.
+ * Code.gs. After pasting a new script you MUST redeploy:
+ *   Deploy → Manage deployments → ✏️ → Version: New version → Deploy
+ * Open this URL in a browser. It must say version 2026-08-13-v3.
  */
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwf5trEieK4v8TtFeLy-COTuFxe6IdGrStpDuyVcGJfwbVqVlNNQBx3U5PkztCn8j4G/exec';
 
@@ -1696,6 +1697,8 @@ function submitForm() {
     }
 
     send(payload);
+  }).catch(function (err) {
+    fail('Could not read the uploads. Please pick the files again and submit. ' + (err && err.message ? err.message : ''));
   });
 }
 
@@ -1719,24 +1722,26 @@ function send(payload) {
   };
 
   fetch(SCRIPT_URL, opts)
-    .then(function (r) { return r.json(); })
-    .then(function (res) {
+    .then(function (r) {
+      return r.text().then(function (text) {
+        var res = null;
+        try { res = JSON.parse(text); } catch (e) { res = null; }
+        return { ok: r.ok, res: res, text: text };
+      });
+    })
+    .then(function (out) {
+      var res = out.res;
       if (res && res.result === 'ok') return done(res.regId);
-      if (res && res.result === 'duplicate') return fail(res.message);
-      fail((res && res.message) || 'The server rejected the registration.');
+      if (res && res.result === 'duplicate') {
+        // Already in the sheet — show the existing ID instead of a fake success.
+        notify(res.message);
+        return done(res.regId);
+      }
+      if (res && res.message) return fail(res.message);
+      fail('The server did not accept the registration. Open the /exec URL in a browser — it must say version 2026-08-13-v3. If it does not, redeploy Code.gs (Manage deployments → edit → New version).');
     })
     .catch(function () {
-      // Response unreadable (CORS) or network hiccup — fire-and-forget retry.
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: body
-      })
-      .then(function () { done(''); })
-      .catch(function () {
-        fail('Network error. Check your connection and tap Submit again.');
-      });
+      fail('Network error. Check your connection and tap Submit again. If this keeps happening, the Apps Script web app is not deployed — paste Code.gs and Deploy → New version.');
     });
 }
 

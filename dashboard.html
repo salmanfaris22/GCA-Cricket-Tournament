@@ -847,7 +847,7 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
         <div class="card-title">Registration list</div>
         <div class="card-sub" id="tableSub">Loading…</div>
       </div>
-      <a class="btn btn-sm" id="sheetLink" href="https://docs.google.com/spreadsheets/d/13bTCTYViC6G5RxpHv9-JyuEsZxoVhfSf8Xs9Zkt0PsQ/edit" target="_blank" rel="noopener">
+      <a class="btn btn-sm" id="sheetLink" href="https://docs.google.com/spreadsheets/d/16KE-3Masz0pkS_VA_AVxT20OmAxbJ3Q0HAKajTHSGNA/edit" target="_blank" rel="noopener">
         <svg><use href="#i-sheet"/></svg> Open sheet
       </a>
     </div>
@@ -903,7 +903,7 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
   // CONFIG — reads the shared Google Sheet through the gviz API.
   // The sheet must stay "Anyone with the link can view".
   // ══════════════════════════════════════════════════════════════
-  var SHEET_ID = '13bTCTYViC6G5RxpHv9-JyuEsZxoVhfSf8Xs9Zkt0PsQ';
+  var SHEET_ID = '16KE-3Masz0pkS_VA_AVxT20OmAxbJ3Q0HAKajTHSGNA';
 
   // The Apps Script WEB APP url — the one ending in /exec, same one the
   // registration form posts to. (The "Library URL" the deploy dialog also
@@ -911,8 +911,8 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
   // Uploading a payment screenshot needs the updatePayment_ handler, so after
   // pasting a new Code.gs re-deploy with Manage deployments → edit → New
   // version, which keeps this URL unchanged.
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrQyA-DITHaNkjE2eSeFnterYfqI52Ia11w8mQcq7VATNWfSTZvmfpMwgfrmAgc91c/exec';
-  var MAX_UPLOAD_MB = 10;
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwf5trEieK4v8TtFeLy-COTuFxe6IdGrStpDuyVcGJfwbVqVlNNQBx3U5PkztCn8j4G/exec';
+  var MAX_UPLOAD_MB = 2;
 
   // Set once the deployed script confirms it understands updatePayment.
   var uploadReady = null;
@@ -924,17 +924,24 @@ a.doc.on:hover { transform: translateY(-2px) scale(1.07); }
   }
 
   var COLS = {
-    'Timestamp':'ts', 'Full Name':'fullName', 'Phone':'phone', 'DOB':'dob',
-    'Blood Group':'blood', 'Address':'address', 'Station':'station',
+    'Reg ID':'regId', 'Timestamp':'ts', 'Full Name':'fullName', 'Phone':'phone',
+    'Email':'email', 'DOB':'dob', 'Blood Group':'blood', 'T-Shirt Size':'tshirt',
+    'City':'station', 'Address':'address',
     'Position':'position', 'Batting':'batting', 'Bowling':'bowling',
     'Registration Type':'regType',
+    'Firm Name':'distFirm', 'Brand Name':'distBrand', 'GST Number':'distGst',
+    'Partner Names':'partners',
     'Distributor Firm':'distFirm', 'Distributor Brand':'distBrand', 'Distributor GST':'distGst',
     'Retail Store Name':'retStore', 'Retail GST':'retGst', 'Retail Configure':'retConfig',
     'Executive Firm':'execFirm', 'Executive Brand':'execBrand',
-    'UTR':'utr', 'Profile Photo':'photo', 'Payment Screenshot':'payment', 'Aadhaar Card':'aadhaar'
+    'Payment Status':'payStatus',
+    'UTR':'utr', 'Profile Photo':'photo', 'GST Certificate':'gstCert',
+    'Partnership Deed':'deed', 'Payment Screenshot':'payment', 'Aadhaar Card':'aadhaar'
   };
 
   var TYPES = [
+    { key: 'Proprietorship',     label: 'Proprietorship', cls: 't-dist', color: 'var(--series-1)', icon: 'i-store' },
+    { key: 'Partnership',        label: 'Partnership',    cls: 't-ret',  color: 'var(--series-2)', icon: 'i-briefcase' },
     { key: 'Distributor',        label: 'Distributor', cls: 't-dist', color: 'var(--series-1)', icon: 'i-truck' },
     { key: 'Retail Store Owner', label: 'Retail',      cls: 't-ret',  color: 'var(--series-2)', icon: 'i-store' },
     { key: 'Executive',          label: 'Executive',   cls: 't-exec', color: 'var(--series-3)', icon: 'i-briefcase' }

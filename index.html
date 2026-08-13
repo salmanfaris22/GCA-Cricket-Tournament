@@ -1266,7 +1266,7 @@
     // 2. Paste the Code.gs in this project
     // 3. Deploy → New deployment → Web App → Anyone → Deploy
     // 4. Copy the URL and paste it below.
-    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyrQyA-DITHaNkjE2eSeFnterYfqI52Ia11w8mQcq7VATNWfSTZvmfpMwgfrmAgc91c/exec';
+    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbwf5trEieK4v8TtFeLy-COTuFxe6IdGrStpDuyVcGJfwbVqVlNNQBx3U5PkztCn8j4G/exec';
 
     var rt = vals['grp-regtype'] || '';
 
@@ -1318,11 +1318,22 @@
       // avoids a CORS pre-flight while still delivering the JSON body.
       fetch(SHEET_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        redirect: 'follow'
       })
-      .then(function() { done(); })
+      .then(function(r) { return r.text(); })
+      .then(function(text) {
+        var res = null;
+        try { res = JSON.parse(text); } catch (e) { res = null; }
+        if (res && res.result === 'ok') return done();
+        if (res && res.message) {
+          document.getElementById('overlay').classList.remove('show');
+          return notify(res.message);
+        }
+        document.getElementById('overlay').classList.remove('show');
+        notify('Registration did not save. Open the Apps Script /exec URL — it must say version 2026-08-13-v3. If not, paste Code.gs and Deploy → New version.');
+      })
       .catch(function() {
         document.getElementById('overlay').classList.remove('show');
         notify('Network error. Please check your connection and try again.');
