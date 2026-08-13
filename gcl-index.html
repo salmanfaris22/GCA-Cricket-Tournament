@@ -88,38 +88,12 @@
 
   .hero-inner { position: relative; z-index: 2; }
 
-  /* GCL wordmark */
-  .wordmark { display: inline-block; margin-bottom: 16px; }
-  .wm-top {
-    display: flex; align-items: stretch;
-    border-radius: 6px 6px 0 0; overflow: hidden;
-    box-shadow: 0 8px 26px rgba(0,0,0,.32);
-  }
-  .wm-badge {
-    background: linear-gradient(160deg, #ffd54a, #f0b429);
-    color: var(--navy);
-    font-family: 'Anton', sans-serif;
-    font-size: 30px; line-height: 1;
-    padding: 11px 16px 10px;
-    display: flex; align-items: center;
-  }
-  .wm-name {
-    background: linear-gradient(160deg, #ec2027, #c8161d);
-    color: #fff;
-    font-family: 'Anton', sans-serif;
-    font-size: 30px; line-height: 1;
-    letter-spacing: 1.5px;
-    padding: 11px 18px 10px;
-    display: flex; align-items: center;
-  }
-  .wm-sub {
-    background: var(--navy);
-    color: #fff;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 2.5px;
-    padding: 6px 10px 5px;
-    border-radius: 0 0 6px 6px;
-    border-top: 1px solid rgba(255,255,255,.14);
+  .hero-logo {
+    width: min(300px, 78vw);
+    height: auto;
+    display: block;
+    margin: 0 auto 18px;
+    filter: drop-shadow(0 10px 28px rgba(0,0,0,.45));
   }
 
   .hero .eyebrow {
@@ -683,8 +657,7 @@
 
   @media (max-width: 400px) {
     .hero h1 { font-size: 28px; }
-    .wm-badge, .wm-name { font-size: 25px; }
-    .wm-sub { letter-spacing: 3.5px; }
+    .hero-logo { width: min(240px, 82vw); }
   }
 </style>
 </head>
@@ -695,13 +668,7 @@
   <div class="sheen"></div>
   <div class="hero-inner">
 
-    <div class="wordmark">
-      <div class="wm-top">
-        <div class="wm-badge">G</div>
-        <div class="wm-name">CL</div>
-      </div>
-      <div class="wm-sub">CELEBRITY CRICKET</div>
-    </div>
+    <img class="hero-logo" src="FINAL%20LOGO.PNG" alt="Garments Premier League 2026">
 
     <div class="eyebrow">OFFICIAL PLAYER REGISTRATION</div>
 
